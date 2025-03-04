@@ -6,13 +6,20 @@
     <title>Pizzería Delivery</title>
     <style>
         body {font-family: Arial, sans-serif; margin: 0; padding: 0;}
-        header {background-color: #D32F2F; color: white; padding: 1rem; text-align: center;}
-        nav a {color: white; margin: 0 1rem; text-decoration: none;}
-        .banner {background: url('pizza-banner.jpg') no-repeat center/cover; height: 50vh; display: flex; justify-content: center; align-items: center; color: white;}
-        section {padding: 2rem;}
+        header {background-color: #D32F2F; color: white; padding: 1rem; text-align: center; position: fixed; width: 100%; top: 0; z-index: 1000;}
+        nav {display: flex; justify-content: center; gap: 2rem;}
+        nav a {color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 5px; transition: background 0.3s;}
+        nav a:hover {background-color: #B71C1C;}
+        .banner {background: url('pizza-banner.jpg') no-repeat center/cover; height: 50vh; display: flex; justify-content: center; align-items: center; color: white; margin-top: 70px;}
+        section {padding: 2rem; max-width: 1200px; margin: auto;}
         h2 {color: #D32F2F;}
-        footer {background-color: #333; color: white; text-align: center; padding: 1rem;}
+        .menu-grid {display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;}
+        .menu-item {background-color: #f9f9f9; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
+        footer {background-color: #333; color: white; text-align: center; padding: 1rem; margin-top: 2rem;}
+        .whatsapp-btn {position: fixed; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; padding: 15px; font-size: 24px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);}
+        .whatsapp-btn:hover {background-color: #1EBE54;}
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RQE89f4rbdU2NQf5TTRT6ks5JrbfM0z4a13xAJhM5ZllD5u7q3jJXkwP0I+MeN" crossorigin="anonymous">
 </head>
 <body>
     <header>
@@ -30,12 +37,25 @@
 
     <section id="menu">
         <h2>Menú</h2>
-        <p>Pizza Margarita, Pizza Pepperoni, Pizza Hawaiana y más...</p>
+        <div class="menu-grid">
+            <div class="menu-item">
+                <h3>Pizza Margarita</h3>
+                <p>Deliciosa pizza con tomate, mozzarella y albahaca fresca.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Pizza Pepperoni</h3>
+                <p>Clásica y llena de sabor con generosas rodajas de pepperoni.</p>
+            </div>
+            <div class="menu-item">
+                <h3>Pizza Hawaiana</h3>
+                <p>La combinación perfecta de piña y jamón sobre una base crujiente.</p>
+            </div>
+        </div>
     </section>
 
     <section id="promociones">
         <h2>Promociones</h2>
-        <p>2x1 los martes, descuento del 20% en tu primera orden.</p>
+        <p>2x1 los martes y un 20% de descuento en tu primera orden.</p>
     </section>
 
     <section id="contacto">
@@ -46,5 +66,11 @@
     <footer>
         <p>&copy; 2025 Pizzería Delivery. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Botón de WhatsApp -->
+    <a href="https://wa.me/573001234567?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn" target="_blank" title="Chatea con nosotros">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 </body>
 </html>
+
