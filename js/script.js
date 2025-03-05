@@ -163,16 +163,4 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         mensaje += `Total: $${total.toLocaleString()}\n`;
       } else {
-        mensaje += 'Pedido: (No se seleccionaron productos)\n';
-      }
-
-      // Abrir WhatsApp
-      const encodedMsg = encodeURIComponent(mensaje);
-      const whatsappNumber = '573018348558'; // Ajusta tu número
-      const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
-      window.open(url, '_blank');
-    });
-  }
-});
-
-
+        
