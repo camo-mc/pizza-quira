@@ -8,161 +8,67 @@
   <title>Pizza Quira - Inicio</title>
 
   <!-- Bootstrap CSS -->
-  <link 
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-  >
-  <!-- Estilos propios -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <!-- NAVBAR (HEADER) -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
-      <!-- BRAND -->
       <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
-
-      <!-- Botón hamburguesa para móvil -->
-      <button 
-        class="navbar-toggler" 
-        type="button" 
-        data-bs-toggle="collapse" 
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false" 
-        aria-label="Toggle navigation"
-      >
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
         <span class="navbar-toggler-icon"></span>
       </button>
-
-      <!-- CONTENIDO DEL NAV -->
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <div class="collapse navbar-collapse" id="navbarContent">
         <ul class="navbar-nav ms-auto me-3">
-          <!-- DROPDOWN -->
           <li class="nav-item dropdown">
-            <a 
-              class="nav-link dropdown-toggle" 
-              href="#" 
-              role="button" 
-              data-bs-toggle="dropdown"
-            >
-              Menú
-            </a>
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Menú</a>
             <ul class="dropdown-menu">
-              <!-- Opciones del desplegable -->
-              <li><a class="dropdown-item" href="index.html">Inicio</a></li>
-              <li><a class="dropdown-item" href="domicilio.html#cartContainer">Ver Carrito</a></li>
-              <li><a class="dropdown-item" href="domicilio.html">Lista de Categorías</a></li>
-              <!-- O podrías enlazar a recoger.html si quieres otro menú -->
+              <li><a class="dropdown-item" href="productos.html">Lista de Productos</a></li>
             </ul>
           </li>
         </ul>
-
-        <!-- BOTONES CTA (pequeños, en amarillo) -->
-        <div class="d-flex gap-2">
-          <button 
-            class="btn btn-sm btn-warning fw-bold"
-            onclick="goToForm('domicilio.html')"
-          >
-            Entrega a Domicilio
-          </button>
-          <button 
-            class="btn btn-sm btn-warning fw-bold"
-            onclick="goToForm('recoger.html')"
-          >
-            Recoger en Tienda
-          </button>
-        </div>
       </div>
     </div>
   </nav>
 
-  <!-- BANNER (margen top para no tapar con navbar) -->
+  <!-- BOTONES SIEMPRE VISIBLES -->
+  <div class="fixed-buttons d-flex gap-2 position-fixed bottom-0 end-0 m-3">
+    <button class="btn btn-warning fw-bold" onclick="window.location.href='domicilio.html'">Entrega a Domicilio</button>
+    <button class="btn btn-warning fw-bold" onclick="window.location.href='recoger.html'">Recoger en Tienda</button>
+  </div>
+
+  <!-- BANNER -->
   <div class="mt-5">
-    <img 
-      src="img/Pizza-Quira.jpg" 
-      alt="Banner Pizza Quira" 
-      class="img-fluid w-100"
-    />
+    <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" class="img-fluid w-100" />
   </div>
-
-  <!-- MARQUEE SUPERIOR -->
-  <div class="marquee-container bg-light py-2">
-    <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
-      ¡La pizza une el mundo!
-    </marquee>
-  </div>
-
-  <!-- BOTÓN DE WHATSAPP -->
-  <a
-    href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!"
-    class="whatsapp-btn"
-    target="_blank"
-    title="Chatea con nosotros por WhatsApp"
-  >
-    <img src="img/whatsapp-icon.png" alt="WhatsApp" />
-  </a>
 
   <!-- PROMOCIONES -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
-      <!-- PROMO 1 -->
-      <div class="col-12 col-md-4 text-center">
-        <img 
-          src="img/promo1.jpg" 
-          alt="Promo 1" 
-          class="img-fluid mb-2"
-          style="cursor: pointer;"
-          onclick="addPromoAndGo('Promo 1 Especial', 25000)"
-        />
+      <div class="col-md-4 text-center">
+        <img src="img/promo1.jpg" alt="Promo 1" class="img-fluid mb-2" onclick="addPromoAndGo('Promo 1 Especial', 25000)" />
         <p class="fw-bold text-danger">Promo 1 Especial - $25,000</p>
       </div>
-
-      <!-- PROMO 2 -->
-      <div class="col-12 col-md-4 text-center">
-        <img 
-          src="img/promo2.jpg" 
-          alt="Promo 2" 
-          class="img-fluid mb-2"
-          style="cursor: pointer;"
-          onclick="addPromoAndGo('Promo 2 Familiar', 32000)"
-        />
+      <div class="col-md-4 text-center">
+        <img src="img/promo2.jpg" alt="Promo 2" class="img-fluid mb-2" onclick="addPromoAndGo('Promo 2 Familiar', 32000)" />
         <p class="fw-bold text-danger">Promo 2 Familiar - $32,000</p>
       </div>
-
-      <!-- PROMO 3 -->
-      <div class="col-12 col-md-4 text-center">
-        <img 
-          src="img/promo3.jpg" 
-          alt="Promo 3" 
-          class="img-fluid mb-2"
-          style="cursor: pointer;"
-          onclick="addPromoAndGo('Promo 3 Combo', 40000)"
-        />
+      <div class="col-md-4 text-center">
+        <img src="img/promo3.jpg" alt="Promo 3" class="img-fluid mb-2" onclick="addPromoAndGo('Promo 3 Combo', 40000)" />
         <p class="fw-bold text-danger">Promo 3 Combo - $40,000</p>
       </div>
     </div>
   </main>
 
-  <!-- MARQUEE INFERIOR (pegado al footer) -->
-  <div class="marquee-container bg-light py-2">
-    <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
-      En Zipaquira domicilios y pizza
-    </marquee>
-  </div>
-
   <!-- FOOTER -->
   <footer class="bg-dark text-white text-center p-3">
     <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
-    <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
 
   <!-- Bootstrap JS -->
-  <script 
-    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-  ></script>
-  <!-- Script propio -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
 </body>
 </html>
