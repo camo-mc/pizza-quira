@@ -1,82 +1,135 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pizza-Quira Delivery</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RQE89f4rbdU2NQf5TTRT6ks5JrbfM0z4a13xAJhM5ZllD5u7q3jJXkwP0I+MeN" crossorigin="anonymous">
-    <style>
-        body {font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #E3F2FD;}
-        header {background-color: #1976D2; color: white; padding: 1rem; text-align: center; position: fixed; width: 100%; top: 0; z-index: 1000;}
-        nav {display: flex; justify-content: center; gap: 2rem;}
-        nav a {color: white; text-decoration: none; padding: 0.5rem 1rem; border-radius: 5px; transition: background 0.3s;}
-        nav a:hover {background-color: #1565C0;}
-        .banner {background-color: #BBDEFB; height: 50vh; display: flex; justify-content: center; align-items: center; color: #D32F2F; margin-top: 70px;}
-        section {padding: 2rem; max-width: 1200px; margin: auto;}
-        h2 {color: #1976D2;}
-        .menu-grid {display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem;}
-        .menu-item {background-color: #f9f9f9; padding: 1rem; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);}
-        footer {background-color: #333; color: white; text-align: center; padding: 1rem; margin-top: 2rem;}
-        .whatsapp-btn {position: fixed; bottom: 20px; right: 20px; background-color: #25D366; color: white; border-radius: 50%; padding: 15px; font-size: 24px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);}
-        .whatsapp-btn:hover {background-color: #1EBE54;}
-        .pdf-menu {text-align: center; margin: 2rem 0;}
-        .pdf-menu a {color: #D32F2F; font-weight: bold; text-decoration: none;}
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Pizza Quira - La mejor pizza en Zipaquira. Servicio a domicilio y para llevar.">
+  <meta name="keywords" content="Pizza, Domicilio, Zipaquira, Comida, Entrega, Pizzería">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pizza Quira - Inicio</title>
+  <!-- Vinculamos el archivo CSS externo -->
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-    <header>
-        <h1>Pizza Quira Delivery</h1>
-        <nav>
-            <a href="#menu">Menú</a>
-            <a href="#promociones">Promociones</a>
-            <a href="#contacto">Contacto</a>
-        </nav>
-    </header>
-
-    <div class="banner">
-        <h2>¡La mejor pizza a domicilio!</h2>
+  <!-- HEADER -->
+  <header>
+    <div class="header-content">
+      <!-- Menú de navegación -->
+      <nav>
+        <ul>
+          <!-- El botón "Menú" abre directamente el PDF en otra pestaña -->
+          <li><a href="MENU.pdf" target="_blank" title="Menú en PDF">Menú</a></li>
+        </ul>
+      </nav>
     </div>
 
-    <section id="menu">
-        <h2>Menú</h2>
-        <div class="menu-grid">
-            <div class="menu-item">
-                <h3>Pizza Margarita</h3>
-                <p>Tomate, mozzarella y albahaca fresca.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Pizza Pepperoni</h3>
-                <p>Rodajas de pepperoni sobre una base crujiente.</p>
-            </div>
-            <div class="menu-item">
-                <h3>Pizza Hawaiana</h3>
-                <p>Piña y jamón con el mejor sabor.</p>
-            </div>
+    <!-- BOTONES DE ENTREGA Y RECOGIDA (con efecto CTA) -->
+    <div class="header-buttons">
+      <!-- Botón que lleva al formulario de domicilio -->
+      <button class="btn-delivery" onclick="window.location.href='domicilio.html';">
+        Entrega a Domicilio
+      </button>
+      <!-- Botón de recoger en tienda (por ahora sin funcionalidad extra) -->
+      <button class="btn-pickup">
+        Recoger en Tienda
+      </button>
+    </div>
+  </header>
+
+  <!-- BANNER -->
+  <div class="banner">
+    <img src="img/Pizza-Quira.jpg" alt="Banner de Pizza Quira con deliciosa pizza" />
+  </div>
+
+  <!-- MENSAJE DESLIZANTE (MARQUEE) DEBAJO DEL BANNER -->
+  <div class="marquee-container">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+      La Pizza une el mundo
+    </marquee>
+  </div>
+
+  <!-- BOTÓN DE WHATSAPP -->
+  <a
+    href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!"
+    class="whatsapp-btn"
+    target="_blank"
+    title="Chatea con nosotros por WhatsApp"
+  >
+    <img src="img/whatsapp-icon.png" alt="WhatsApp" />
+  </a>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main>
+    <!-- Sección de menú de ejemplo (opcional) -->
+    <section class="menu-section">
+      <h2>Nuestras Pizzas</h2>
+      <div class="menu-grid">
+        <div class="menu-item">
+          <h3>Pizza Margarita</h3>
+          <p>Tomate, mozzarella y albahaca fresca.</p>
         </div>
-        <div class="pdf-menu">
-            <p>Descarga nuestro menú completo:</p>
-            <a href="menu.pdf" target="_blank">Ver Menú en PDF</a>
+        <div class="menu-item">
+          <h3>Pizza Pepperoni</h3>
+          <p>Rodajas de pepperoni sobre una base crujiente.</p>
         </div>
+        <div class="menu-item">
+          <h3>Pizza Hawaiana</h3>
+          <p>Piña y jamón con el mejor sabor.</p>
+        </div>
+        <!-- Más productos -->
+        <div class="menu-item">
+          <h3>Pizza Cuatro Quesos</h3>
+          <p>Mozzarella, parmesano, provolone y azul.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Pizza Vegetariana</h3>
+          <p>Pimientos, cebolla, champiñones y aceitunas.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Pizza BBQ</h3>
+          <p>Pollo, salsa BBQ, maíz y mozzarella.</p>
+        </div>
+        <div class="menu-item">
+          <h3>Bebidas</h3>
+          <p>Refrescos, jugos naturales y más.</p>
+        </div>
+      </div>
     </section>
+  </main>
 
-    <section id="promociones">
-        <h2>Promociones</h2>
-        <p>2x1 los martes y un 20% de descuento en tu primera orden.</p>
-    </section>
+  <!-- SECCIÓN DE REDES SOCIALES (arriba del footer) -->
+  <div class="social-section">
+    <h3>Síguenos en Redes Sociales</h3>
+    <ul class="social-links">
+      <li>
+        <a href="https://www.instagram.com/tu_cuenta" target="_blank" title="Instagram">
+          <img src="img/instagram-icon.png" alt="Instagram" />
+        </a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/tu_pagina" target="_blank" title="Facebook">
+          <img src="img/facebook-icon.png" alt="Facebook" />
+        </a>
+      </li>
+      <li>
+        <a href="https://g.page/tu_google_my_business" target="_blank" title="Google My Business">
+          <img src="img/google-icon.png" alt="Google My Business" />
+        </a>
+      </li>
+    </ul>
+  </div>
 
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Llámanos al 123-456-7890 o visítanos en nuestras redes sociales.</p>
-    </section>
+  <!-- FOOTER -->
+  <footer>
+    <p>
+      &copy; 2025 www.checkinpos.co - Todos los derechos reservados.
+      | <a href="terminos.html" style="color: #fff; text-decoration: underline;">Términos y Condiciones</a>
+    </p>
+    <p style="margin-top: 0.5rem;">
+      “El amor a la pizza nos une y nos alegra el corazón con cada bocado.”
+    </p>
+  </footer>
 
-    <footer>
-        <p>&copy; www.checkinpos.co Todos los derechos reservados.</p>
-    </footer>
-
-    <a href="https://wa.me/573001234567?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn" target="_blank" title="Chatea con nosotros">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
+  <!-- Archivo JavaScript externo -->
+  <script src="js/script.js"></script>
 </body>
 </html>
-
