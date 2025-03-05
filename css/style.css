@@ -68,11 +68,11 @@ body {
   padding-top: 80px; /* Ajusta según la altura del header */
 }
 
-/* Botón flotante del carrito */
+/* Botón flotante del carrito (ahora en la esquina inferior izquierda) */
 #floatingCartBtn {
   position: fixed;
   bottom: 90px;
-  right: 20px;
+  left: 20px;
   background-color: #ffc107;
   color: #000;
   padding: 10px 15px;
