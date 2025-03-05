@@ -16,34 +16,13 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-  <!-- HEADER CON BOTONES FIJOS -->
-  <header class="bg-danger text-white p-3 fixed-top w-100">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a class="navbar-brand fw-bold text-white" href="index.html">Pizza Quira</a>
-      
-      <div class="d-flex gap-2">
-        <button 
-          class="btn btn-warning fw-bold"
-          onclick="window.location.href='domicilio.html';"
-        >
-          Entrega a Domicilio
-        </button>
-        <button 
-          class="btn btn-warning fw-bold"
-          onclick="window.location.href='recoger.html';"
-        >
-          Recoger en Tienda
-        </button>
-      </div>
-    </div>
-  </header>
-
-  <!-- NAVBAR (MENÚ) -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger mt-5">
+  <!-- NAVBAR (HEADER) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
+      <!-- BRAND -->
       <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
 
+      <!-- Botón hamburguesa para móvil -->
       <button 
         class="navbar-toggler" 
         type="button" 
@@ -56,8 +35,10 @@
         <span class="navbar-toggler-icon"></span>
       </button>
 
+      <!-- CONTENIDO DEL NAV -->
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto me-3">
+          <!-- DROPDOWN -->
           <li class="nav-item dropdown">
             <a 
               class="nav-link dropdown-toggle" 
@@ -68,17 +49,35 @@
               Menú
             </a>
             <ul class="dropdown-menu">
+              <!-- Opciones del desplegable -->
               <li><a class="dropdown-item" href="index.html">Inicio</a></li>
               <li><a class="dropdown-item" href="domicilio.html#cartContainer">Ver Carrito</a></li>
               <li><a class="dropdown-item" href="domicilio.html">Lista de Categorías</a></li>
+              <!-- O podrías enlazar a recoger.html si quieres otro menú -->
             </ul>
           </li>
         </ul>
+
+        <!-- BOTONES CTA (pequeños, en amarillo) -->
+        <div class="d-flex gap-2">
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('domicilio.html')"
+          >
+            Entrega a Domicilio
+          </button>
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('recoger.html')"
+          >
+            Recoger en Tienda
+          </button>
+        </div>
       </div>
     </div>
   </nav>
 
-  <!-- BANNER -->
+  <!-- BANNER (margen top para no tapar con navbar) -->
   <div class="mt-5">
     <img 
       src="img/Pizza-Quira.jpg" 
@@ -108,6 +107,7 @@
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
+      <!-- PROMO 1 -->
       <div class="col-12 col-md-4 text-center">
         <img 
           src="img/promo1.jpg" 
@@ -119,6 +119,7 @@
         <p class="fw-bold text-danger">Promo 1 Especial - $25,000</p>
       </div>
 
+      <!-- PROMO 2 -->
       <div class="col-12 col-md-4 text-center">
         <img 
           src="img/promo2.jpg" 
@@ -130,6 +131,7 @@
         <p class="fw-bold text-danger">Promo 2 Familiar - $32,000</p>
       </div>
 
+      <!-- PROMO 3 -->
       <div class="col-12 col-md-4 text-center">
         <img 
           src="img/promo3.jpg" 
@@ -143,7 +145,7 @@
     </div>
   </main>
 
-  <!-- MARQUEE INFERIOR -->
+  <!-- MARQUEE INFERIOR (pegado al footer) -->
   <div class="marquee-container bg-light py-2">
     <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
       En Zipaquira domicilios y pizza
