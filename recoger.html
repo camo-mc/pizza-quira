@@ -2,108 +2,93 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Formulario de recogida en tienda - Pizza Quira" />
+  <meta name="description" content="Formulario para recoger en tienda - Pizza Quira" />
   <meta name="keywords" content="Pizza, Recoger, Zipaquira, Formulario" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Recoger en Tienda</title>
+
+  <!-- Bootstrap CSS -->
+  <link 
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+  >
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header>
-    <div class="header-content">
-      <nav>
-        <ul>
-          <li>
-            <button onclick="window.location.href='index.html';" class="btn-return">
-              Regresar al Inicio
-            </button>
-          </li>
-        </ul>
-      </nav>
+  <header class="bg-danger text-white p-3 position-fixed w-100 top-0">
+    <div class="container d-flex justify-content-between align-items-center">
+      <h1 class="h4 m-0">Pizza Quira - Recoger</h1>
+      <button 
+        class="btn btn-light fw-bold" 
+        onclick="window.location.href='index.html';"
+      >
+        Regresar al Inicio
+      </button>
     </div>
   </header>
 
-  <main style="margin-top: 70px; max-width: 1200px; margin: 0 auto; padding: 1rem;">
-    <h2 style="color: #D32F2F; margin-bottom: 1rem;">Recoger en Tienda</h2>
+  <main class="container mt-5 pt-5">
+    <h2 class="text-danger mb-3">Recoger en Tienda</h2>
 
-    <!-- FORMULARIO DE DATOS BÁSICOS -->
-    <form id="recogerForm" class="datos-cliente">
-      <label for="nombre">Nombre Completo</label>
-      <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
-
-      <label for="telefono">Teléfono</label>
-      <input type="tel" id="telefono" name="telefono" required placeholder="Tu teléfono">
-
-      <label for="nota">Nota / Comentarios</label>
-      <textarea id="nota" name="nota" rows="3" placeholder="Ej. Pizza grande sin cebolla"></textarea>
+    <!-- FORMULARIO (sin teléfono, si así lo prefieres) -->
+    <form id="recogerForm" class="row g-3 mb-4">
+      <div class="col-md-6">
+        <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
+        <input 
+          type="text" 
+          class="form-control" 
+          id="nombre" 
+          name="nombre"
+          required
+          placeholder="Tu nombre"
+        >
+      </div>
+      <div class="col-md-6">
+        <label for="email" class="form-label fw-bold">Correo</label>
+        <input 
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          required
+          placeholder="Tu correo"
+        >
+      </div>
+      <div class="col-md-12">
+        <label for="nota" class="form-label fw-bold">Nota / Comentarios</label>
+        <textarea 
+          id="nota"
+          name="nota"
+          rows="2"
+          class="form-control"
+          placeholder="Ej. Sin cebolla"
+        ></textarea>
+      </div>
     </form>
 
-    <hr style="margin: 2rem 0;">
-
-    <!-- MENÚ DESPLEGABLE (igual que en domicilio.html) -->
-    <section class="menu-desplegable">
-      <h3 style="color: #D32F2F;">Selecciona tus productos</h3>
-      <details open>
-        <summary>Pizzas</summary>
-        <div class="producto-item">
-          <span>Pizza Margarita</span>
-          <button onclick="addToCart('Pizza Margarita')" class="btn-add">Agregar</button>
-        </div>
-        <div class="producto-item">
-          <span>Pizza Pepperoni</span>
-          <button onclick="addToCart('Pizza Pepperoni')" class="btn-add">Agregar</button>
-        </div>
-        <div class="producto-item">
-          <span>Pizza Hawaiana</span>
-          <button onclick="addToCart('Pizza Hawaiana')" class="btn-add">Agregar</button>
-        </div>
-      </details>
-
-      <details>
-        <summary>Hamburguesas</summary>
-        <div class="producto-item">
-          <span>Hamburguesa Clásica</span>
-          <button onclick="addToCart('Hamburguesa Clásica')" class="btn-add">Agregar</button>
-        </div>
-        <div class="producto-item">
-          <span>Hamburguesa BBQ</span>
-          <button onclick="addToCart('Hamburguesa BBQ')" class="btn-add">Agregar</button>
-        </div>
-      </details>
-
-      <details>
-        <summary>Bebidas</summary>
-        <div class="producto-item">
-          <span>Gaseosa 500ml</span>
-          <button onclick="addToCart('Gaseosa 500ml')" class="btn-add">Agregar</button>
-        </div>
-        <div class="producto-item">
-          <span>Jugo Natural</span>
-          <button onclick="addToCart('Jugo Natural')" class="btn-add">Agregar</button>
-        </div>
-      </details>
-    </section>
-
-    <hr style="margin: 2rem 0;">
-
-    <!-- CARRITO -->
-    <section class="carrito">
-      <h3 style="color: #D32F2F;">Tu Pedido</h3>
-      <ul id="cartItems"></ul>
-      <p id="cartEmptyMessage">El carrito está vacío.</p>
-
-      <!-- BOTÓN PARA ENVIAR PEDIDO -->
-      <button id="btnEnviarPedido" class="btn-submit">
-        Enviar Pedido por WhatsApp
-      </button>
-    </section>
+    <!-- CARRITO (RECUPERADO DE LOCALSTORAGE) -->
+    <h3 class="text-danger">Tu Pedido</h3>
+    <div id="cartContainer" class="mb-4">
+      <ul id="cartItems" class="list-group mb-2"></ul>
+      <p id="cartEmptyMessage" class="text-muted">El carrito está vacío.</p>
+      <div class="d-flex justify-content-between align-items-center">
+        <strong>Total: $<span id="cartTotal">0</span></strong>
+        <button id="btnEnviarPedido" class="btn btn-warning fw-bold">
+          Enviar Pedido
+        </button>
+      </div>
+    </div>
   </main>
 
-  <footer>
-    <p>&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
-    <p>“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
+  <footer class="bg-dark text-white text-center p-3">
+    <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
+    <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
 
+  <!-- Bootstrap JS -->
+  <script 
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+  ></script>
   <script src="js/script.js"></script>
 </body>
 </html>
