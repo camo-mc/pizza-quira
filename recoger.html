@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Formulario para recoger en tienda - Pizza Quira" />
-  <meta name="keywords" content="Pizza, Recoger, Zipaquira, Formulario" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Recoger en Tienda</title>
-  <!-- Bootstrap CSS -->
+  <meta charset="UTF-8">
+  <meta name="description" content="Formulario para recoger en tienda - Pizza Quira">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recoger en Tienda - Pizza Quira</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- NAVBAR (igual que en index y domicilio) -->
+  <!-- NAVBAR -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
@@ -19,8 +17,7 @@
         <button class="btn btn-sm btn-warning fw-bold me-2" onclick="goToForm('domicilio.html')">Entrega a Domicilio</button>
         <button class="btn btn-sm btn-warning fw-bold" onclick="goToForm('recoger.html')">Recoger en Tienda</button>
       </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarRecoger" 
-              aria-controls="navbarRecoger" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarRecoger">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarRecoger">
@@ -37,10 +34,11 @@
       </div>
     </div>
   </nav>
-
+  
+  <!-- Main Content -->
   <main class="container mt-5 pt-5">
     <h2 class="text-danger mb-3">Recoger en Tienda</h2>
-    <!-- FORMULARIO -->
+    <!-- Formulario simple para recoger -->
     <form id="recogerForm" class="row g-3 mb-4">
       <div class="col-md-6">
         <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
@@ -55,13 +53,13 @@
         <textarea id="nota" name="nota" rows="2" class="form-control" placeholder="Ej. Sin cebolla"></textarea>
       </div>
     </form>
-
+    
     <hr class="my-4">
-
-    <!-- Sección de Carta (cargada dinámicamente) -->
+    
+    <!-- Sección de Carta -->
     <div id="cartaSection"></div>
-
-    <!-- CARRITO -->
+    
+    <!-- Carrito -->
     <h3 class="text-danger">Tu Pedido</h3>
     <div id="cartContainer" class="mb-4">
       <ul id="cartItems" class="list-group mb-2"></ul>
@@ -72,24 +70,24 @@
       </div>
     </div>
   </main>
-
+  
   <!-- Botón flotante del carrito -->
   <div id="floatingCartBtn" onclick="window.location.href='#cartContainer'">
     <span id="floatingCartCount">0</span> 🛒
   </div>
-
-  <!-- BOTÓN DE WHATSAPP con animación -->
-  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" 
-     title="Chatea con nosotros por WhatsApp">
-    <img src="img/whatsapp-icon.png" alt="WhatsApp" />
+  
+  <!-- Botón de WhatsApp -->
+  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" title="Chatea con nosotros por WhatsApp">
+    <img src="img/whatsapp-icon.png" alt="WhatsApp">
   </a>
-
-  <footer class="bg-dark text-white text-center p-3 mt-4">
+  
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3">
     <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
     <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
-
-  <!-- Bootstrap JS y carga dinámica de la Carta -->
+  
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
   <script>
@@ -97,6 +95,9 @@
       .then(response => response.text())
       .then(data => {
         document.getElementById('cartaSection').innerHTML = data;
+        if (typeof initializePizzaSection === "function") {
+          initializePizzaSection();
+        }
       })
       .catch(error => console.error('Error al cargar la carta:', error));
   </script>
