@@ -11,21 +11,18 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- NAVBAR (igual que en index) -->
+  <!-- NAVBAR (igual que en index y domicilio) -->
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
-      <!-- Botones siempre visibles -->
       <div class="nav-buttons">
         <button class="btn btn-sm btn-warning fw-bold me-2" onclick="goToForm('domicilio.html')">Entrega a Domicilio</button>
         <button class="btn btn-sm btn-warning fw-bold" onclick="goToForm('recoger.html')">Recoger en Tienda</button>
       </div>
-      <!-- Botón hamburguesa -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarRecoger" 
               aria-controls="navbarRecoger" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <!-- Menú colapsable -->
       <div class="collapse navbar-collapse" id="navbarRecoger">
         <ul class="navbar-nav ms-auto me-3">
           <li class="nav-item dropdown">
@@ -43,7 +40,6 @@
 
   <main class="container mt-5 pt-5">
     <h2 class="text-danger mb-3">Recoger en Tienda</h2>
-
     <!-- FORMULARIO -->
     <form id="recogerForm" class="row g-3 mb-4">
       <div class="col-md-6">
@@ -62,88 +58,8 @@
 
     <hr class="my-4">
 
-    <!-- MENÚ COMPLETO (ACORDEÓN) - Sección fija "Carta" -->
-    <h3 class="text-danger mb-3">Carta</h3>
-    <div class="accordion mb-4" id="menuAcordeon">
-      <!-- Pizzas -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePizzas" aria-expanded="true">
-            Pizzas
-          </button>
-        </h2>
-        <div id="collapsePizzas" class="accordion-collapse collapse show" data-bs-parent="#menuAcordeon">
-          <div class="accordion-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span>Pizza Margarita ($15,000)</span>
-              <div>
-                <input type="number" class="form-control d-inline-block" value="1" min="1" style="width:60px" id="qtyMargarita">
-                <button class="btn btn-sm btn-success ms-2" onclick="addToCart('Pizza Margarita', 15000, 'qtyMargarita')">Agregar</button>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span>Pizza Pepperoni ($18,000)</span>
-              <div>
-                <input type="number" class="form-control d-inline-block" value="1" min="1" style="width:60px" id="qtyPepperoni">
-                <button class="btn btn-sm btn-success ms-2" onclick="addToCart('Pizza Pepperoni', 18000, 'qtyPepperoni')">Agregar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Hamburguesas -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHamburguesas">
-            Hamburguesas
-          </button>
-        </h2>
-        <div id="collapseHamburguesas" class="accordion-collapse collapse" data-bs-parent="#menuAcordeon">
-          <div class="accordion-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span>Hamburguesa Clásica ($10,000)</span>
-              <div>
-                <input type="number" class="form-control d-inline-block" value="1" min="1" style="width:60px" id="qtyHambClasic">
-                <button class="btn btn-sm btn-success ms-2" onclick="addToCart('Hamburguesa Clásica', 10000, 'qtyHambClasic')">Agregar</button>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span>Hamburguesa BBQ ($12,000)</span>
-              <div>
-                <input type="number" class="form-control d-inline-block" value="1" min="1" style="width:60px" id="qtyHambBbq">
-                <button class="btn btn-sm btn-success ms-2" onclick="addToCart('Hamburguesa BBQ', 12000, 'qtyHambBbq')">Agregar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- Bebidas -->
-      <div class="accordion-item">
-        <h2 class="accordion-header">
-          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBebidas">
-            Bebidas
-          </button>
-        </h2>
-        <div id="collapseBebidas" class="accordion-collapse collapse" data-bs-parent="#menuAcordeon">
-          <div class="accordion-body">
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span>Gaseosa 500ml ($3,000)</span>
-              <div>
-                <input type="number" class="form-control d-inline-block" value="1" min="1" style="width:60px" id="qtyGaseosa">
-                <button class="btn btn-sm btn-success ms-2" onclick="addToCart('Gaseosa 500ml', 3000, 'qtyGaseosa')">Agregar</button>
-              </div>
-            </div>
-            <div class="d-flex justify-content-between align-items-center mb-2">
-              <span>Jugo Natural ($4,000)</span>
-              <div>
-                <input type="number" class="form-control d-inline-block" value="1" min="1" style="width:60px" id="qtyJugo">
-                <button class="btn btn-sm btn-success ms-2" onclick="addToCart('Jugo Natural', 4000, 'qtyJugo')">Agregar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- Sección de Carta (cargada dinámicamente) -->
+    <div id="cartaSection"></div>
 
     <!-- CARRITO -->
     <h3 class="text-danger">Tu Pedido</h3>
@@ -173,8 +89,16 @@
     <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
 
-  <!-- Bootstrap JS -->
+  <!-- Bootstrap JS y carga dinámica de la Carta -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script>
+    fetch('carta.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('cartaSection').innerHTML = data;
+      })
+      .catch(error => console.error('Error al cargar la carta:', error));
+  </script>
 </body>
 </html>
