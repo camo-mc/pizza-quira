@@ -1,22 +1,22 @@
 /* script.js */
 
-// Redirige a la página indicada.
+// Función para redirigir a otra página.
 function goToForm(page) {
   window.location.href = page;
 }
 
 let cart = [];
 
-// Agrega un producto al carrito (cada clic crea una nueva entrada)
+// Agrega un producto al carrito (cada clic genera una nueva entrada)
 function addToCart(itemName, price, qtyId) {
   let qty = 1;
   if (qtyId) {
     const qtyInput = document.getElementById(qtyId);
     qty = parseInt(qtyInput.value, 10) || 1;
   }
-  // Agrega la entrada sin combinar duplicados
   cart.push({ name: itemName, price: price, qty: qty });
   localStorage.setItem("pizzaCart", JSON.stringify(cart));
+  console.log("Producto agregado:", itemName, price, qty);
   alert("Producto agregado: " + itemName + " ($" + price + ")");
   updateFloatingCartBtn();
 }
@@ -24,10 +24,10 @@ function addToCart(itemName, price, qtyId) {
 // Agrega un producto promocional y redirige.
 function addPromoAndGo(itemName, price) {
   addToCart(itemName, price, null);
-  goToForm("opcion.html"); // Cambia la redirección si es necesario.
+  goToForm("opcion.html");
 }
 
-// Renderiza el carrito en el elemento correspondiente.
+// Renderiza el carrito en pantalla.
 function renderCart() {
   const cartItemsUl = document.getElementById("cartItems");
   const cartEmptyMsg = document.getElementById("cartEmptyMessage");
@@ -84,7 +84,7 @@ function loadCartFromStorage() {
   updateFloatingCartBtn();
 }
 
-// Función para inicializar la sección interactiva de Pizzas (en carta.html)
+// Función para inicializar la sección interactiva de Pizzas (usada en carta.html)
 function initializePizzaSection() {
   // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
@@ -93,6 +93,7 @@ function initializePizzaSection() {
   // Actualiza los desplegables de sabores según el tamaño seleccionado.
   function updateFlavorOptions() {
     const size = document.getElementById("pizzaSize").value;
+    console.log("Tamaño seleccionado:", size);
     const container = document.getElementById("flavorContainer");
     container.innerHTML = "";
     if (!size) {
@@ -125,7 +126,7 @@ function initializePizzaSection() {
       } else {
         options = window.classicFlavors.concat(window.gourmetFlavors);
       }
-      options.forEach(function (flavor) {
+      options.forEach(function(flavor) {
         const opt = document.createElement("option");
         opt.value = flavor;
         opt.textContent = flavor;
@@ -137,8 +138,8 @@ function initializePizzaSection() {
     }
     updatePrice();
   }
-
-  // Calcula y muestra el precio según el tamaño y los sabores seleccionados.
+  
+  // Calcula y muestra el precio según el tamaño y sabores seleccionados.
   function updatePrice() {
     const size = document.getElementById("pizzaSize").value;
     if (!size) {
@@ -149,10 +150,9 @@ function initializePizzaSection() {
     let selectedFlavors = [];
     for (let i = 1; i <= dropdownCount; i++) {
       const flavor = document.getElementById("flavor" + i).value;
-      if (flavor) {
-        selectedFlavors.push(flavor);
-      }
+      selectedFlavors.push(flavor);
     }
+    console.log("Sabores seleccionados:", selectedFlavors);
     let price = 0;
     if (size === "porcion") {
       price = 9000;
@@ -172,7 +172,7 @@ function initializePizzaSection() {
   document.getElementById("pizzaSize").addEventListener("change", updateFlavorOptions);
 }
 
-// Inicializa el carrito al cargar la página
+// Inicializa el carrito cuando se carga la página.
 document.addEventListener("DOMContentLoaded", function() {
   if (document.getElementById("cartItems")) {
     loadCartFromStorage();
