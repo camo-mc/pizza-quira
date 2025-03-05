@@ -24,21 +24,64 @@
   object-fit: cover;
 }
 
-/* Banner spacing if needed */
-.mt-5 {
-  margin-top: 5rem !important;
+/* Animación para el botón de WhatsApp */
+.whatsapp-animated {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Navbar ajustes para móviles (más compacto) */
+@media (max-width: 576px) {
+  .navbar-brand {
+    font-size: 1rem;
+  }
+  .nav-buttons button {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  .navbar-nav {
+    font-size: 0.9rem;
+  }
 }
 
 /* Ajuste para header fijo */
-header {
+header, .navbar {
   position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
-/* Ajuste para evitar que el contenido quede debajo del header */
+/* Evitar que el contenido quede oculto detrás del header */
 body {
   padding-top: 80px; /* Ajusta según la altura del header */
 }
 
+/* Botón flotante del carrito */
+#floatingCartBtn {
+  position: fixed;
+  bottom: 90px;
+  right: 20px;
+  background-color: #ffc107;
+  color: #000;
+  padding: 10px 15px;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 1000;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  font-weight: bold;
+}
+#floatingCartBtn:hover {
+  background-color: #e0a800;
+}
