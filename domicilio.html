@@ -2,8 +2,8 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Formulario de entrega a domicilio - Pizza Quira">
-  <meta name="keywords" content="Pizza, Domicilio, Formulario, Zipaquira">
+  <meta name="description" content="Formulario de entrega a domicilio - Pizza Quira" />
+  <meta name="keywords" content="Pizza, Domicilio, Zipaquira, Formulario" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Entrega a Domicilio</title>
   <link rel="stylesheet" href="css/style.css" />
@@ -13,49 +13,105 @@
     <div class="header-content">
       <nav>
         <ul>
-          <!-- Enlace “Menú” abre directamente el PDF -->
-          <li><a href="MENU.pdf" target="_blank" title="Menú en PDF">Menú</a></li>
+          <li>
+            <button onclick="window.location.href='index.html';" class="btn-return">
+              Regresar al Inicio
+            </button>
+          </li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- SIN BANNER: se quita el bloque <div class="banner"> -->
+  <main style="margin-top: 70px; max-width: 1200px; margin: 0 auto; padding: 1rem;">
+    <h2 style="color: #D32F2F; margin-bottom: 1rem;">Entrega a Domicilio</h2>
 
-  <main style="margin-top: 70px;">
-    <section style="max-width: 600px; margin: 0 auto; padding: 1rem;">
-      <h2 style="color: #D32F2F; margin-bottom: 1rem;">Formulario de Entrega a Domicilio</h2>
-      <form id="domicilioForm">
-        <label for="nombre">Nombre Completo</label>
-        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+    <!-- FORMULARIO DE DATOS -->
+    <form id="domicilioForm" class="datos-cliente">
+      <label for="nombre">Nombre Completo</label>
+      <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
 
-        <label for="telefono">Teléfono</label>
-        <input type="tel" id="telefono" name="telefono" required placeholder="Tu teléfono">
+      <label for="telefono">Teléfono</label>
+      <input type="tel" id="telefono" name="telefono" required placeholder="Tu teléfono">
 
-        <label for="direccion">Dirección</label>
-        <input type="text" id="direccion" name="direccion" required placeholder="Tu dirección">
+      <label for="direccion">Dirección</label>
+      <input type="text" id="direccion" name="direccion" required placeholder="Tu dirección">
 
-        <label for="barrio">Barrio</label>
-        <input type="text" id="barrio" name="barrio" required placeholder="Tu barrio">
+      <label for="barrio">Barrio</label>
+      <input type="text" id="barrio" name="barrio" required placeholder="Tu barrio">
 
-        <label for="nota">Nota / Pedido</label>
-        <textarea id="nota" name="nota" rows="4" placeholder="Ej. Pizza Pepperoni grande sin cebolla"></textarea>
+      <label for="nota">Nota / Comentarios</label>
+      <textarea id="nota" name="nota" rows="3" placeholder="Ej. Pizza grande sin cebolla"></textarea>
+    </form>
 
-        <button type="submit" class="btn-submit">
-          Enviar Pedido
-        </button>
-      </form>
+    <hr style="margin: 2rem 0;">
+
+    <!-- MENÚ DESPLEGABLE -->
+    <section class="menu-desplegable">
+      <h3 style="color: #D32F2F;">Selecciona tus productos</h3>
+
+      <!-- PIZZAS -->
+      <details open>
+        <summary>Pizzas</summary>
+        <div class="producto-item">
+          <span>Pizza Margarita</span>
+          <button onclick="addToCart('Pizza Margarita')" class="btn-add">Agregar</button>
+        </div>
+        <div class="producto-item">
+          <span>Pizza Pepperoni</span>
+          <button onclick="addToCart('Pizza Pepperoni')" class="btn-add">Agregar</button>
+        </div>
+        <div class="producto-item">
+          <span>Pizza Hawaiana</span>
+          <button onclick="addToCart('Pizza Hawaiana')" class="btn-add">Agregar</button>
+        </div>
+      </details>
+
+      <!-- HAMBURGUESAS -->
+      <details>
+        <summary>Hamburguesas</summary>
+        <div class="producto-item">
+          <span>Hamburguesa Clásica</span>
+          <button onclick="addToCart('Hamburguesa Clásica')" class="btn-add">Agregar</button>
+        </div>
+        <div class="producto-item">
+          <span>Hamburguesa BBQ</span>
+          <button onclick="addToCart('Hamburguesa BBQ')" class="btn-add">Agregar</button>
+        </div>
+      </details>
+
+      <!-- BEBIDAS -->
+      <details>
+        <summary>Bebidas</summary>
+        <div class="producto-item">
+          <span>Gaseosa 500ml</span>
+          <button onclick="addToCart('Gaseosa 500ml')" class="btn-add">Agregar</button>
+        </div>
+        <div class="producto-item">
+          <span>Jugo Natural</span>
+          <button onclick="addToCart('Jugo Natural')" class="btn-add">Agregar</button>
+        </div>
+      </details>
+    </section>
+
+    <hr style="margin: 2rem 0;">
+
+    <!-- CARRITO -->
+    <section class="carrito">
+      <h3 style="color: #D32F2F;">Tu Pedido</h3>
+      <ul id="cartItems"></ul>
+      <p id="cartEmptyMessage">El carrito está vacío.</p>
+
+      <!-- BOTÓN PARA ENVIAR PEDIDO -->
+      <button id="btnEnviarPedido" class="btn-submit">
+        Enviar Pedido por WhatsApp
+      </button>
     </section>
   </main>
 
   <footer>
-    <p>
-      &copy; 2025 www.checkinpos.co - Todos los derechos reservados.
-      | <a href="terminos.html" style="color: #fff; text-decoration: underline;">Términos y Condiciones</a>
-    </p>
-    <p style="margin-top: 0.5rem;">
-      “El amor a la pizza nos une y nos alegra el corazón con cada bocado.”
-    </p>
+    <p>&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
+    <p>“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
 
   <script src="js/script.js"></script>
