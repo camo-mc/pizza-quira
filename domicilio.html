@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="description" content="Formulario de entrega a domicilio - Pizza Quira">
+  <meta name="keywords" content="Pizza, Domicilio, Formulario, Zipaquira">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Entrega a Domicilio</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <nav>
+        <ul>
+          <!-- Enlace “Menú” abre directamente el PDF -->
+          <li><a href="MENU.pdf" target="_blank" title="Menú en PDF">Menú</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- SIN BANNER: se quita el bloque <div class="banner"> -->
+
+  <main style="margin-top: 70px;">
+    <section style="max-width: 600px; margin: 0 auto; padding: 1rem;">
+      <h2 style="color: #D32F2F; margin-bottom: 1rem;">Formulario de Entrega a Domicilio</h2>
+      <form id="domicilioForm">
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+
+        <label for="telefono">Teléfono</label>
+        <input type="tel" id="telefono" name="telefono" required placeholder="Tu teléfono">
+
+        <label for="direccion">Dirección</label>
+        <input type="text" id="direccion" name="direccion" required placeholder="Tu dirección">
+
+        <label for="barrio">Barrio</label>
+        <input type="text" id="barrio" name="barrio" required placeholder="Tu barrio">
+
+        <label for="nota">Nota / Pedido</label>
+        <textarea id="nota" name="nota" rows="4" placeholder="Ej. Pizza Pepperoni grande sin cebolla"></textarea>
+
+        <button type="submit" class="btn-submit">
+          Enviar Pedido
+        </button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      &copy; 2025 www.checkinpos.co - Todos los derechos reservados.
+      | <a href="terminos.html" style="color: #fff; text-decoration: underline;">Términos y Condiciones</a>
+    </p>
+    <p style="margin-top: 0.5rem;">
+      “El amor a la pizza nos une y nos alegra el corazón con cada bocado.”
+    </p>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
