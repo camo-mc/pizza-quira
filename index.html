@@ -2,34 +2,31 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="description" content="Pizza Quira - La mejor pizza en Zipaquira. Servicio a domicilio y para llevar.">
-  <meta name="keywords" content="Pizza, Domicilio, Zipaquira, Comida, Entrega, Pizzería">
+  <meta name="description" content="Pizza Quira - La mejor pizza en Zipaquira. Servicio a domicilio y para llevar." />
+  <meta name="keywords" content="Pizza, Domicilio, Zipaquira, Comida, Pizzería" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pizza Quira - Inicio</title>
-  <!-- Vinculamos el archivo CSS externo -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
   <!-- HEADER -->
   <header>
     <div class="header-content">
-      <!-- Menú de navegación -->
+      <!-- Menú de navegación (si lo requieres en el futuro) -->
       <nav>
         <ul>
-          <!-- El botón "Menú" abre directamente el PDF en otra pestaña -->
-          <li><a href="MENU.pdf" target="_blank" title="Menú en PDF">Menú</a></li>
+          <!-- Podrías agregar más enlaces si quieres -->
+          <!-- <li><a href="#">Otro Enlace</a></li> -->
         </ul>
       </nav>
     </div>
 
-    <!-- BOTONES DE ENTREGA Y RECOGIDA (con efecto CTA) -->
+    <!-- BOTONES DE ENTREGA Y RECOGIDA -->
     <div class="header-buttons">
-      <!-- Botón que lleva al formulario de domicilio -->
       <button class="btn-delivery" onclick="window.location.href='domicilio.html';">
         Entrega a Domicilio
       </button>
-      <!-- Botón de recoger en tienda (por ahora sin funcionalidad extra) -->
-      <button class="btn-pickup">
+      <button class="btn-pickup" onclick="window.location.href='recoger.html';">
         Recoger en Tienda
       </button>
     </div>
@@ -37,10 +34,10 @@
 
   <!-- BANNER -->
   <div class="banner">
-    <img src="img/Pizza-Quira.jpg" alt="Banner de Pizza Quira con deliciosa pizza" />
+    <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" />
   </div>
 
-  <!-- MENSAJE DESLIZANTE (MARQUEE) DEBAJO DEL BANNER -->
+  <!-- MENSAJE DESLIZANTE -->
   <div class="marquee-container">
     <marquee behavior="scroll" direction="left" scrollamount="6">
       La Pizza une el mundo
@@ -57,79 +54,12 @@
     <img src="img/whatsapp-icon.png" alt="WhatsApp" />
   </a>
 
-  <!-- CONTENIDO PRINCIPAL -->
-  <main>
-    <!-- Sección de menú de ejemplo (opcional) -->
-    <section class="menu-section">
-      <h2>Nuestras Pizzas</h2>
-      <div class="menu-grid">
-        <div class="menu-item">
-          <h3>Pizza Margarita</h3>
-          <p>Tomate, mozzarella y albahaca fresca.</p>
-        </div>
-        <div class="menu-item">
-          <h3>Pizza Pepperoni</h3>
-          <p>Rodajas de pepperoni sobre una base crujiente.</p>
-        </div>
-        <div class="menu-item">
-          <h3>Pizza Hawaiana</h3>
-          <p>Piña y jamón con el mejor sabor.</p>
-        </div>
-        <!-- Más productos -->
-        <div class="menu-item">
-          <h3>Pizza Cuatro Quesos</h3>
-          <p>Mozzarella, parmesano, provolone y azul.</p>
-        </div>
-        <div class="menu-item">
-          <h3>Pizza Vegetariana</h3>
-          <p>Pimientos, cebolla, champiñones y aceitunas.</p>
-        </div>
-        <div class="menu-item">
-          <h3>Pizza BBQ</h3>
-          <p>Pollo, salsa BBQ, maíz y mozzarella.</p>
-        </div>
-        <div class="menu-item">
-          <h3>Bebidas</h3>
-          <p>Refrescos, jugos naturales y más.</p>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- SECCIÓN DE REDES SOCIALES (arriba del footer) -->
-  <div class="social-section">
-    <h3>Síguenos en Redes Sociales</h3>
-    <ul class="social-links">
-      <li>
-        <a href="https://www.instagram.com/tu_cuenta" target="_blank" title="Instagram">
-          <img src="img/instagram-icon.png" alt="Instagram" />
-        </a>
-      </li>
-      <li>
-        <a href="https://www.facebook.com/tu_pagina" target="_blank" title="Facebook">
-          <img src="img/facebook-icon.png" alt="Facebook" />
-        </a>
-      </li>
-      <li>
-        <a href="https://g.page/tu_google_my_business" target="_blank" title="Google My Business">
-          <img src="img/google-icon.png" alt="Google My Business" />
-        </a>
-      </li>
-    </ul>
-  </div>
-
   <!-- FOOTER -->
   <footer>
-    <p>
-      &copy; 2025 www.checkinpos.co - Todos los derechos reservados.
-      | <a href="terminos.html" style="color: #fff; text-decoration: underline;">Términos y Condiciones</a>
-    </p>
-    <p style="margin-top: 0.5rem;">
-      “El amor a la pizza nos une y nos alegra el corazón con cada bocado.”
-    </p>
+    <p>&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
+    <p>“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
 
-  <!-- Archivo JavaScript externo -->
   <script src="js/script.js"></script>
 </body>
 </html>
