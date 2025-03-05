@@ -24,7 +24,7 @@
   </div>
 </div>
 
-<h3 class="text-danger mb-3">Hamburguesas</h3>
+<h3 class="text-danger mb-3">Carta - Hamburguesas</h3>
 <div class="accordion mb-4" id="hamburguesasAccordion">
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -47,7 +47,7 @@
   </div>
 </div>
 
-<h3 class="text-danger mb-3">Bebidas</h3>
+<h3 class="text-danger mb-3">Carta - Bebidas</h3>
 <div class="accordion mb-4" id="bebidasAccordion">
   <div class="accordion-item">
     <h2 class="accordion-header">
@@ -71,7 +71,96 @@
 </div>
 
 <script>
-// Función para agregar la pizza al carrito usando la lógica definida en script.js
+// Función que inicializa la sección interactiva de Pizzas
+function initializePizzaSection() {
+  // Listas de sabores
+  window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
+  window.gourmetFlavors = ["Costillas BBQ", "Peperoni", "Pollo Teriyaky", "Ranchera Mix", "Pizzaquira", "Oreo"];
+
+  // Actualiza los desplegables de sabores según el tamaño seleccionado.
+  function updateFlavorOptions() {
+    const size = document.getElementById("pizzaSize").value;
+    const container = document.getElementById("flavorContainer");
+    container.innerHTML = "";
+    if (!size) {
+      document.getElementById("calculatedPrice").textContent = "";
+      return;
+    }
+    let numDropdowns = 0;
+    if (size === "porcion") {
+      numDropdowns = 1;
+    } else if (size === "personal" || size === "mediana") {
+      numDropdowns = 2;
+    } else if (size === "familiar") {
+      numDropdowns = 3;
+    }
+    for (let i = 1; i <= numDropdowns; i++) {
+      const label = document.createElement("label");
+      label.textContent = "Sabor " + i + ":";
+      label.setAttribute("for", "flavor" + i);
+      label.className = "form-label";
+      const select = document.createElement("select");
+      select.id = "flavor" + i;
+      select.className = "form-select mb-2";
+      const defaultOption = document.createElement("option");
+      defaultOption.value = "";
+      defaultOption.textContent = "Seleccione un sabor";
+      select.appendChild(defaultOption);
+      let options = [];
+      if (size === "porcion") {
+        options = window.classicFlavors;
+      } else {
+        options = window.classicFlavors.concat(window.gourmetFlavors);
+      }
+      options.forEach(function(flavor) {
+        const opt = document.createElement("option");
+        opt.value = flavor;
+        opt.textContent = flavor;
+        select.appendChild(opt);
+      });
+      select.addEventListener("change", updatePrice);
+      container.appendChild(label);
+      container.appendChild(select);
+    }
+    updatePrice();
+  }
+  
+  // Calcula y muestra el precio basado en el tamaño y los sabores seleccionados.
+  function updatePrice() {
+    const size = document.getElementById("pizzaSize").value;
+    if (!size) {
+      document.getElementById("calculatedPrice").textContent = "";
+      return;
+    }
+    let dropdownCount = (size === "porcion") ? 1 : (size === "personal" || size === "mediana") ? 2 : 3;
+    let selectedFlavors = [];
+    for (let i = 1; i <= dropdownCount; i++) {
+      const select = document.getElementById("flavor" + i);
+      if (select) {
+        selectedFlavors.push(select.value);
+      }
+    }
+    let price = 0;
+    if (size === "porcion") {
+      price = 9000;
+    } else if (size === "personal") {
+      let hasGourmet = selectedFlavors.some(fl => window.gourmetFlavors.includes(fl));
+      price = hasGourmet ? 26000 : 23000;
+    } else if (size === "mediana") {
+      let hasGourmet = selectedFlavors.some(fl => window.gourmetFlavors.includes(fl));
+      price = hasGourmet ? 46000 : 43000;
+    } else if (size === "familiar") {
+      let gourmetCount = selectedFlavors.filter(fl => window.gourmetFlavors.includes(fl)).length;
+      price = (gourmetCount >= 2) ? 67000 : 63000;
+    }
+    document.getElementById("calculatedPrice").textContent = "Precio: $" + price.toLocaleString();
+  }
+  
+  document.getElementById("pizzaSize").addEventListener("change", updateFlavorOptions);
+}
+
+// Función para agregar la pizza al carrito.
+// Verifica que se haya seleccionado un tamaño y que cada desplegable tenga una opción elegida.
 function addPizzaToCart() {
   const size = document.getElementById("pizzaSize").value;
   if (!size) {
@@ -88,7 +177,6 @@ function addPizzaToCart() {
     }
     flavors.push(flavor);
   }
-  // Obtiene el precio mostrado
   let priceText = document.getElementById("calculatedPrice").textContent;
   if (!priceText) {
     alert("No se pudo calcular el precio.");
@@ -96,9 +184,8 @@ function addPizzaToCart() {
   }
   let price = parseInt(priceText.replace(/[^0-9]/g, ""), 10);
   const itemName = "Pizza " + size.charAt(0).toUpperCase() + size.slice(1) + " (" + flavors.join(", ") + ")";
+  // Se asume que addToCart está definida globalmente en script.js
   addToCart(itemName, price, null);
-  alert("Pizza agregada: " + itemName + " - $" + price.toLocaleString());
+  alert("Pizza agregada al carrito: " + itemName + " - $" + price.toLocaleString());
 }
-
-// Se debe llamar a initializePizzaSection() después de cargar este archivo dinámicamente.
 </script>
