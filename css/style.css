@@ -29,3 +29,16 @@
   margin-top: 5rem !important;
 }
 
+/* Ajuste para header fijo */
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Ajuste para evitar que el contenido quede debajo del header */
+body {
+  padding-top: 80px; /* Ajusta según la altura del header */
+}
+
