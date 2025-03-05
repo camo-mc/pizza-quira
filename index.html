@@ -6,9 +6,9 @@
   <meta name="keywords" content="Pizza, Domicilio, Zipaquira, Comida, Pizzería" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pizza Quira - Inicio</title>
-
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Estilos propios -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
@@ -16,15 +16,27 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <!-- Botones siempre visibles -->
+      <div class="nav-buttons">
+          <button class="btn btn-sm btn-warning fw-bold me-2" onclick="goToForm('domicilio.html')">Entrega a Domicilio</button>
+          <button class="btn btn-sm btn-warning fw-bold" onclick="goToForm('recoger.html')">Recoger en Tienda</button>
+      </div>
+      <!-- Botón hamburguesa -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" 
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarContent">
+      <!-- Menú colapsable -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav ms-auto me-3">
           <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Menú</a>
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+              Menú
+            </a>
             <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="productos.html">Lista de Productos</a></li>
+              <li><a class="dropdown-item" href="index.html">Inicio</a></li>
+              <li><a class="dropdown-item" href="productos.html">Productos</a></li>
+              <li><a class="dropdown-item" href="domicilio.html#cartContainer">Ver Carrito</a></li>
             </ul>
           </li>
         </ul>
@@ -32,43 +44,63 @@
     </div>
   </nav>
 
-  <!-- BOTONES SIEMPRE VISIBLES -->
-  <div class="fixed-buttons d-flex gap-2 position-fixed bottom-0 end-0 m-3">
-    <button class="btn btn-warning fw-bold" onclick="window.location.href='domicilio.html'">Entrega a Domicilio</button>
-    <button class="btn btn-warning fw-bold" onclick="window.location.href='recoger.html'">Recoger en Tienda</button>
-  </div>
-
   <!-- BANNER -->
   <div class="mt-5">
     <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" class="img-fluid w-100" />
+  </div>
+
+  <!-- MARQUEE -->
+  <div class="marquee-container bg-light py-2">
+    <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
+      ¡La pizza une el mundo!
+    </marquee>
   </div>
 
   <!-- PROMOCIONES -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
-      <div class="col-md-4 text-center">
-        <img src="img/promo1.jpg" alt="Promo 1" class="img-fluid mb-2" onclick="addPromoAndGo('Promo 1 Especial', 25000)" />
+      <!-- PROMO 1 -->
+      <div class="col-12 col-md-4 text-center">
+        <img src="img/promo1.jpg" alt="Promo 1" class="img-fluid mb-2" style="cursor: pointer;" 
+             onclick="addPromoAndGo('Promo 1 Especial', 25000)" />
         <p class="fw-bold text-danger">Promo 1 Especial - $25,000</p>
       </div>
-      <div class="col-md-4 text-center">
-        <img src="img/promo2.jpg" alt="Promo 2" class="img-fluid mb-2" onclick="addPromoAndGo('Promo 2 Familiar', 32000)" />
+      <!-- PROMO 2 -->
+      <div class="col-12 col-md-4 text-center">
+        <img src="img/promo2.jpg" alt="Promo 2" class="img-fluid mb-2" style="cursor: pointer;" 
+             onclick="addPromoAndGo('Promo 2 Familiar', 32000)" />
         <p class="fw-bold text-danger">Promo 2 Familiar - $32,000</p>
       </div>
-      <div class="col-md-4 text-center">
-        <img src="img/promo3.jpg" alt="Promo 3" class="img-fluid mb-2" onclick="addPromoAndGo('Promo 3 Combo', 40000)" />
+      <!-- PROMO 3 -->
+      <div class="col-12 col-md-4 text-center">
+        <img src="img/promo3.jpg" alt="Promo 3" class="img-fluid mb-2" style="cursor: pointer;" 
+             onclick="addPromoAndGo('Promo 3 Combo', 40000)" />
         <p class="fw-bold text-danger">Promo 3 Combo - $40,000</p>
       </div>
     </div>
   </main>
 
+  <!-- Botón flotante del carrito -->
+  <div id="floatingCartBtn" onclick="window.location.href='domicilio.html#cartContainer'">
+    <span id="floatingCartCount">0</span> Carrito
+  </div>
+
+  <!-- BOTÓN DE WHATSAPP con animación -->
+  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" 
+     title="Chatea con nosotros por WhatsApp">
+    <img src="img/whatsapp-icon.png" alt="WhatsApp" />
+  </a>
+
   <!-- FOOTER -->
   <footer class="bg-dark text-white text-center p-3">
     <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
+    <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Script propio -->
   <script src="js/script.js"></script>
 </body>
 </html>
