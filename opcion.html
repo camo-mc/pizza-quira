@@ -15,17 +15,49 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="bg-danger text-white p-3 position-fixed w-100 top-0">
-    <div class="container d-flex justify-content-between align-items-center">
-      <span class="fw-bold fs-5">Pizza-Quira</span>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
+      <!-- Botón hamburguesa -->
       <button 
-        class="btn btn-light fw-bold"
-        onclick="window.location.href='index.html';"
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarOpciones"
       >
-        Regresar al Inicio
+        <span class="navbar-toggler-icon"></span>
       </button>
+
+      <div class="collapse navbar-collapse" id="navbarOpciones">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              Menú
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="index.html">Inicio</a></li>
+              <li><a class="dropdown-item" href="domicilio.html#cartContainer">Ver Carrito</a></li>
+              <li><a class="dropdown-item" href="domicilio.html">Lista de Categorías</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="d-flex gap-2">
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('domicilio.html')"
+          >
+            Entrega a Domicilio
+          </button>
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('recoger.html')"
+          >
+            Recoger en Tienda
+          </button>
+        </div>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <main class="container mt-5 pt-5 text-center">
     <h2 class="text-danger mb-4">¿Cómo deseas tu pedido?</h2>
