@@ -16,15 +16,68 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <!-- HEADER (Texto "Pizza-Quira" y sin menú) -->
-  <header class="bg-danger text-white p-3 position-fixed w-100 top-0">
-    <div class="container d-flex justify-content-between align-items-center">
-      <span class="fw-bold fs-5">Pizza-Quira</span>
-      <!-- Si deseas otros botones aquí, puedes agregarlos -->
-    </div>
-  </header>
+  <!-- NAVBAR (HEADER) -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
+    <div class="container">
+      <!-- BRAND -->
+      <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
 
-  <!-- BANNER -->
+      <!-- Botón hamburguesa para móvil -->
+      <button 
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false" 
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- CONTENIDO DEL NAV -->
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ms-auto me-3">
+          <!-- DROPDOWN -->
+          <li class="nav-item dropdown">
+            <a 
+              class="nav-link dropdown-toggle" 
+              href="#" 
+              role="button" 
+              data-bs-toggle="dropdown"
+            >
+              Menú
+            </a>
+            <ul class="dropdown-menu">
+              <!-- Opciones del desplegable -->
+              <li><a class="dropdown-item" href="index.html">Inicio</a></li>
+              <li><a class="dropdown-item" href="domicilio.html#cartContainer">Ver Carrito</a></li>
+              <li><a class="dropdown-item" href="domicilio.html">Lista de Categorías</a></li>
+              <!-- O podrías enlazar a recoger.html si quieres otro menú -->
+            </ul>
+          </li>
+        </ul>
+
+        <!-- BOTONES CTA (pequeños, en amarillo) -->
+        <div class="d-flex gap-2">
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('domicilio.html')"
+          >
+            Entrega a Domicilio
+          </button>
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('recoger.html')"
+          >
+            Recoger en Tienda
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BANNER (margen top para no tapar con navbar) -->
   <div class="mt-5">
     <img 
       src="img/Pizza-Quira.jpg" 
@@ -50,7 +103,7 @@
     <img src="img/whatsapp-icon.png" alt="WhatsApp" />
   </a>
 
-  <!-- 3 PROMOCIONES -->
+  <!-- PROMOCIONES -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
