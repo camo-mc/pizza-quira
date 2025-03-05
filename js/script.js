@@ -1,23 +1,32 @@
-/************************************
-  ARCHIVO: script.js
-************************************/
-
-/**
- * Estructura del carrito: array de objetos
- * [{ name, price, qty }, ...]
- */
 let cart = [];
 
 /**
- * Agregar producto al carrito
- * @param {string} itemName - nombre del producto
- * @param {number} price - precio unitario
- * @param {string} qtyId - id del input que contiene la cantidad
+ * Agrega un producto y va a opcion.html
+ */
+function addPromoAndGo(itemName, price) {
+  // Si no tienes un input de cantidad, asumimos qty = 1
+  const qty = 1;
+  // Agrega al carrito
+  cart.push({ name: itemName, price, qty });
+  // Render (si quieres ver algo en consola)
+  console.log("Carrito:", cart);
+
+  // Guardar en Local Storage
+  localStorage.setItem('pizzaCart', JSON.stringify(cart));
+
+  // Redirigir a la página donde eliges Domicilio o Recoger
+  window.location.href = 'opcion.html';
+}
+
+/**
+ * Agrega un producto con qtyId (usado en menus)
  */
 function addToCart(itemName, price, qtyId) {
-  const qtyInput = document.getElementById(qtyId);
-  const qty = parseInt(qtyInput.value, 10) || 1;
-
+  let qty = 1;
+  if (qtyId) {
+    const qtyInput = document.getElementById(qtyId);
+    qty = parseInt(qtyInput.value, 10) || 1;
+  }
   cart.push({ name: itemName, price, qty });
   renderCart();
 }
@@ -40,11 +49,9 @@ function renderCart() {
   } else {
     cartEmptyMsg.style.display = 'none';
     let total = 0;
-
     cart.forEach((producto, index) => {
       const li = document.createElement('li');
       li.className = 'list-group-item d-flex justify-content-between align-items-center';
-
       const productText = `${producto.qty} x ${producto.name} ($${producto.price})`;
       li.textContent = productText;
 
@@ -60,20 +67,17 @@ function renderCart() {
       li.appendChild(removeBtn);
       cartItemsUl.appendChild(li);
 
-      total += (producto.price * producto.qty);
+      total += producto.price * producto.qty;
     });
-
     cartTotalSpan.textContent = total.toLocaleString();
   }
 }
 
 /**
- * Guarda el carrito en LocalStorage y redirige a la página correspondiente
+ * Guarda el carrito y redirige a la página
  */
 function goToForm(page) {
-  // Guardamos el carrito actual en local storage
   localStorage.setItem('pizzaCart', JSON.stringify(cart));
-  // Redirigimos
   window.location.href = page;
 }
 
@@ -91,18 +95,19 @@ function loadCartFromStorage() {
 }
 
 /**
- * Enviar Pedido al dar clic
+ * Escucha el DOMContentLoaded para cargar el carrito y setear eventos
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Si existe #cartItems en esta página, significa que debemos cargar el carrito
+  // Si existe #cartItems, estamos en domicilio/recoger => cargar carrito
   if (document.getElementById('cartItems')) {
     loadCartFromStorage();
   }
 
+  // Si existe btnEnviarPedido => logica de validacion
   const btnEnviarPedido = document.getElementById('btnEnviarPedido');
   if (btnEnviarPedido) {
     btnEnviarPedido.addEventListener('click', () => {
-      // Determinar si estamos en domicilio o recoger
+      // Checar si estamos en domicilio o recoger
       const domicilioForm = document.getElementById('domicilioForm');
       const recogerForm = document.getElementById('recogerForm');
 
@@ -114,7 +119,6 @@ document.addEventListener('DOMContentLoaded', () => {
       let nota = '';
 
       if (domicilioForm) {
-        // Tomar los valores
         nombre = document.getElementById('nombre').value.trim();
         email = document.getElementById('email').value.trim();
         telefono = document.getElementById('telefono').value.trim();
@@ -122,7 +126,6 @@ document.addEventListener('DOMContentLoaded', () => {
         barrio = document.getElementById('barrio').value.trim();
         nota = document.getElementById('nota').value.trim();
 
-        // Validación
         if (!nombre || !email || !telefono || !direccion || !barrio) {
           alert('Por favor, completa todos los campos obligatorios.');
           return;
@@ -134,7 +137,6 @@ document.addEventListener('DOMContentLoaded', () => {
         email = document.getElementById('email').value.trim();
         nota = document.getElementById('nota').value.trim();
 
-        // Validación
         if (!nombre || !email) {
           alert('Por favor, completa todos los campos obligatorios.');
           return;
@@ -159,14 +161,14 @@ document.addEventListener('DOMContentLoaded', () => {
         let total = 0;
         cart.forEach((item) => {
           mensaje += `  - ${item.qty} x ${item.name} ($${item.price})\n`;
-          total += item.price * item.qty;
+          total += (item.price * item.qty);
         });
         mensaje += `Total: $${total.toLocaleString()}\n`;
       } else {
         mensaje += 'Pedido: (No se seleccionaron productos)\n';
       }
 
-      // Abrir WhatsApp con el número real
+      // Abrir WhatsApp con tu número real
       const encodedMsg = encodeURIComponent(mensaje);
       const whatsappNumber = '573018348558'; // +57 301 834 8558
       const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
