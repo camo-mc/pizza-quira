@@ -1,14 +1,12 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="description" content="Formulario de entrega a domicilio - Pizza Quira" />
-  <meta name="keywords" content="Pizza, Domicilio, Zipaquira, Formulario" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Entrega a Domicilio</title>
-  <!-- Bootstrap CSS -->
+  <meta charset="UTF-8">
+  <meta name="description" content="Formulario de entrega a domicilio - Pizza Quira">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Entrega a Domicilio - Pizza Quira</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <!-- NAVBAR -->
@@ -19,8 +17,7 @@
         <button class="btn btn-sm btn-warning fw-bold me-2" onclick="goToForm('domicilio.html')">Entrega a Domicilio</button>
         <button class="btn btn-sm btn-warning fw-bold" onclick="goToForm('recoger.html')">Recoger en Tienda</button>
       </div>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDomicilio" 
-              aria-controls="navbarDomicilio" aria-expanded="false" aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDomicilio">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarDomicilio">
@@ -37,10 +34,11 @@
       </div>
     </div>
   </nav>
-
+  
+  <!-- Main Content -->
   <main class="container mt-5 pt-5">
-    <h2 class="text-danger mb-3">Formulario de Entrega a Domicilio</h2>
-    <!-- FORMULARIO: nombre, email, teléfono, dirección, barrio, forma de pago, nota -->
+    <h2 class="text-danger mb-3">Entrega a Domicilio</h2>
+    <!-- Formulario de domicilio -->
     <form id="domicilioForm" class="row g-3 mb-4">
       <div class="col-md-6">
         <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
@@ -65,7 +63,7 @@
       <div class="col-md-6">
         <label for="paymentMethod" class="form-label fw-bold">Forma de Pago</label>
         <select id="paymentMethod" name="paymentMethod" class="form-select" required>
-          <option value="" disabled selected>Selecciona una opción</option>
+          <option value="" disabled selected>Seleccione una opción</option>
           <option value="Nequi">Nequi</option>
           <option value="Daviplata">Daviplata</option>
           <option value="Tarjeta">Tarjeta</option>
@@ -77,13 +75,13 @@
         <textarea id="nota" name="nota" rows="2" class="form-control" placeholder="Ej. Sin cebolla"></textarea>
       </div>
     </form>
-
+    
     <hr class="my-4">
-
-    <!-- Sección de Carta (cargada dinámicamente) -->
+    
+    <!-- Sección de Carta -->
     <div id="cartaSection"></div>
-
-    <!-- CARRITO -->
+    
+    <!-- Carrito -->
     <h3 class="text-danger">Tu Pedido</h3>
     <div id="cartContainer" class="mb-4">
       <ul id="cartItems" class="list-group mb-2"></ul>
@@ -94,32 +92,35 @@
       </div>
     </div>
   </main>
-
+  
   <!-- Botón flotante del carrito -->
   <div id="floatingCartBtn" onclick="window.location.href='#cartContainer'">
     <span id="floatingCartCount">0</span> 🛒
   </div>
-
-  <!-- BOTÓN DE WHATSAPP con animación -->
-  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" 
-     title="Chatea con nosotros por WhatsApp">
-    <img src="img/whatsapp-icon.png" alt="WhatsApp" />
+  
+  <!-- Botón de WhatsApp -->
+  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" title="Chatea con nosotros por WhatsApp">
+    <img src="img/whatsapp-icon.png" alt="WhatsApp">
   </a>
-
-  <!-- FOOTER -->
-  <footer class="bg-dark text-white text-center p-3 mt-4">
+  
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center p-3">
     <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
     <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
   </footer>
-
-  <!-- Bootstrap JS y carga dinámica de la Carta -->
+  
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
   <script>
+    // Cargar la carta y luego inicializar la sección de pizzas.
     fetch('carta.html')
       .then(response => response.text())
       .then(data => {
         document.getElementById('cartaSection').innerHTML = data;
+        if (typeof initializePizzaSection === "function") {
+          initializePizzaSection();
+        }
       })
       .catch(error => console.error('Error al cargar la carta:', error));
   </script>
