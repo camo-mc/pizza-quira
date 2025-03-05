@@ -15,51 +15,73 @@
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-  <header class="bg-danger text-white p-3 position-fixed w-100 top-0">
-    <div class="container d-flex justify-content-between align-items-center">
-      <h1 class="h4 m-0">Pizza Quira - Domicilio</h1>
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Pizza-Quira</a>
       <button 
-        class="btn btn-light fw-bold" 
-        onclick="window.location.href='index.html';"
+        class="navbar-toggler" 
+        type="button" 
+        data-bs-toggle="collapse" 
+        data-bs-target="#navbarDomicilio"
       >
-        Regresar al Inicio
+        <span class="navbar-toggler-icon"></span>
       </button>
+
+      <div class="collapse navbar-collapse" id="navbarDomicilio">
+        <ul class="navbar-nav ms-auto me-3">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+              Menú
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="index.html">Inicio</a></li>
+              <li><a class="dropdown-item" href="#cartContainer">Ver Carrito</a></li>
+              <li><a class="dropdown-item" href="#menuAcordeon">Lista de Categorías</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="d-flex gap-2">
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('domicilio.html')"
+          >
+            Entrega a Domicilio
+          </button>
+          <button 
+            class="btn btn-sm btn-warning fw-bold"
+            onclick="goToForm('recoger.html')"
+          >
+            Recoger en Tienda
+          </button>
+        </div>
+      </div>
     </div>
-  </header>
+  </nav>
 
   <main class="container mt-5 pt-5">
     <h2 class="text-danger mb-3">Formulario de Entrega a Domicilio</h2>
 
-    <!-- FORMULARIO DE DATOS -->
+    <!-- FORMULARIO -->
     <form id="domicilioForm" class="row g-3 mb-4">
       <!-- ... Nombre, email, teléfono, dirección, barrio, nota ... -->
     </form>
 
     <hr class="my-4">
 
-    <!-- MENÚ COMPLETO (ACORDEÓN) -->
+    <!-- MENÚ COMPLETO (ACORDEÓN) con categoría Promos, Pizzas, Hamburguesas, Bebidas -->
     <h3 class="text-danger mb-3">Menú Completo</h3>
     <div class="accordion mb-4" id="menuAcordeon">
-
       <!-- PROMOS -->
       <div class="accordion-item">
         <h2 class="accordion-header">
-          <button 
-            class="accordion-button" 
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#collapsePromos"
-            aria-expanded="true"
-          >
+          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePromos" aria-expanded="true">
             Promos
           </button>
         </h2>
-        <div 
-          id="collapsePromos" 
-          class="accordion-collapse collapse show" 
-          data-bs-parent="#menuAcordeon"
-        >
+        <div id="collapsePromos" class="accordion-collapse collapse show" data-bs-parent="#menuAcordeon">
           <div class="accordion-body">
+            <!-- 3 promos con addToCart -->
             <div class="d-flex justify-content-between align-items-center mb-2">
               <span>Promo 1 Especial ($25,000)</span>
               <button 
@@ -95,17 +117,14 @@
       <div class="accordion-item">
         <!-- ... igual que antes ... -->
       </div>
-
       <!-- HAMBURGUESAS -->
       <div class="accordion-item">
         <!-- ... igual que antes ... -->
       </div>
-
       <!-- BEBIDAS -->
       <div class="accordion-item">
         <!-- ... igual que antes ... -->
       </div>
-
     </div>
 
     <!-- CARRITO -->
