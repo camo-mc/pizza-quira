@@ -137,5 +137,39 @@
 
   // Función para agregar la pizza al carrito, usando la función addToCart (debe estar definida en script.js)
   function addPizzaToCart() {
-    const size = document.getElementByI
+    const size = document.getElementById("pizzaSize").value;
+    if(!size) {
+      alert("Seleccione un tamaño para la pizza.");
+      return;
+    }
+    let dropdownCount = (size === "porcion") ? 1 : (size === "personal" || size === "mediana") ? 2 : 3;
+    let flavors = [];
+    for(let i = 1; i <= dropdownCount; i++) {
+      const flavor = document.getElementById("flavor" + i).value;
+      if(!flavor) {
+        alert("Seleccione el sabor en la opción " + i);
+        return;
+      }
+      flavors.push(flavor);
+    }
+    // Obtener el precio mostrado
+    let priceText = document.getElementById("calculatedPrice").textContent;
+    if(!priceText) {
+      alert("No se pudo calcular el precio.");
+      return;
+    }
+    let price = parseInt(priceText.replace(/[^0-9]/g, ""), 10);
+    // Construir el nombre del ítem, por ejemplo: "Pizza Personal (Hawaiana, Pollo)"
+    const itemName = "Pizza " + capitalize(size) + " (" + flavors.join(", ") + ")";
+    // Llamar a la función addToCart definida en script.js (si está disponible)
+    addToCart(itemName, price, null);
+    alert("Pizza agregada al carrito: " + itemName + " - $" + price.toLocaleString());
+  }
 
+  function capitalize(s) {
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  }
+
+  // Asignar el evento al cambiar el tamaño
+  document.getElementById("pizzaSize").addEventListener("change", updateFlavorOptions);
+</script>
