@@ -1,20 +1,19 @@
 let cart = [];
 
 /**
- * Agrega un producto y va a opcion.html
+ * Agrega un producto y redirige a opcion.html
  */
 function addPromoAndGo(itemName, price) {
-  // Si no tienes un input de cantidad, asumimos qty = 1
   const qty = 1;
-  // Agrega al carrito
-  cart.push({ name: itemName, price, qty });
-  // Render (si quieres ver algo en consola)
+  const existingItem = cart.find(item => item.name === itemName && item.price === price);
+  if (existingItem) {
+    existingItem.qty += qty;
+  } else {
+    cart.push({ name: itemName, price, qty });
+  }
   console.log("Carrito:", cart);
-
-  // Guardar en Local Storage
   localStorage.setItem('pizzaCart', JSON.stringify(cart));
-
-  // Redirigir a la página donde eliges Domicilio o Recoger
+  updateFloatingCartBtn();
   window.location.href = 'opcion.html';
 }
 
@@ -27,8 +26,15 @@ function addToCart(itemName, price, qtyId) {
     const qtyInput = document.getElementById(qtyId);
     qty = parseInt(qtyInput.value, 10) || 1;
   }
-  cart.push({ name: itemName, price, qty });
+  const existingItem = cart.find(item => item.name === itemName && item.price === price);
+  if (existingItem) {
+    existingItem.qty += qty;
+  } else {
+    cart.push({ name: itemName, price, qty });
+  }
+  localStorage.setItem('pizzaCart', JSON.stringify(cart));
   renderCart();
+  updateFloatingCartBtn();
 }
 
 /**
@@ -61,7 +67,9 @@ function renderCart() {
       removeBtn.className = 'btn btn-sm btn-danger ms-2';
       removeBtn.onclick = () => {
         cart.splice(index, 1);
+        localStorage.setItem('pizzaCart', JSON.stringify(cart));
         renderCart();
+        updateFloatingCartBtn();
       };
 
       li.appendChild(removeBtn);
@@ -70,6 +78,17 @@ function renderCart() {
       total += producto.price * producto.qty;
     });
     cartTotalSpan.textContent = total.toLocaleString();
+  }
+}
+
+/**
+ * Actualiza el contador del botón flotante del carrito
+ */
+function updateFloatingCartBtn() {
+  const btn = document.getElementById('floatingCartCount');
+  if (btn) {
+    let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    btn.textContent = totalQty;
   }
 }
 
@@ -92,22 +111,24 @@ function loadCartFromStorage() {
     cart = [];
   }
   renderCart();
+  updateFloatingCartBtn();
 }
 
 /**
  * Escucha el DOMContentLoaded para cargar el carrito y setear eventos
  */
 document.addEventListener('DOMContentLoaded', () => {
-  // Si existe #cartItems, estamos en domicilio/recoger => cargar carrito
   if (document.getElementById('cartItems')) {
     loadCartFromStorage();
   }
 
-  // Si existe btnEnviarPedido => logica de validacion
   const btnEnviarPedido = document.getElementById('btnEnviarPedido');
   if (btnEnviarPedido) {
     btnEnviarPedido.addEventListener('click', () => {
-      // Checar si estamos en domicilio o recoger
+      if (!confirm("¿Seguro que deseas enviar el pedido?")) {
+        return;
+      }
+      
       const domicilioForm = document.getElementById('domicilioForm');
       const recogerForm = document.getElementById('recogerForm');
 
@@ -118,6 +139,8 @@ document.addEventListener('DOMContentLoaded', () => {
       let barrio = '';
       let nota = '';
 
+      let mensaje = 'Hola, quiero hacer un pedido!\n';
+
       if (domicilioForm) {
         nombre = document.getElementById('nombre').value.trim();
         email = document.getElementById('email').value.trim();
@@ -125,33 +148,23 @@ document.addEventListener('DOMContentLoaded', () => {
         direccion = document.getElementById('direccion').value.trim();
         barrio = document.getElementById('barrio').value.trim();
         nota = document.getElementById('nota').value.trim();
-
-        if (!nombre || !email || !telefono || !direccion || !barrio) {
+        const paymentMethod = document.getElementById('paymentMethod').value;
+        if (!nombre || !email || !telefono || !direccion || !barrio || !paymentMethod) {
           alert('Por favor, completa todos los campos obligatorios.');
           return;
         }
-      }
-
-      if (recogerForm) {
+        mensaje += `Nombre: ${nombre}\nCorreo: ${email}\nTeléfono: ${telefono}\nDirección: ${direccion}\nBarrio: ${barrio}\nForma de Pago: ${paymentMethod}\n`;
+      } else if (recogerForm) {
         nombre = document.getElementById('nombre').value.trim();
         email = document.getElementById('email').value.trim();
         nota = document.getElementById('nota').value.trim();
-
         if (!nombre || !email) {
           alert('Por favor, completa todos los campos obligatorios.');
           return;
         }
+        mensaje += `Nombre: ${nombre}\nCorreo: ${email}\n`;
       }
 
-      // Construimos el mensaje final
-      let mensaje = 'Hola, quiero hacer un pedido!\n';
-      mensaje += `Nombre: ${nombre}\n`;
-      if (email) mensaje += `Correo: ${email}\n`;
-      if (domicilioForm) {
-        mensaje += `Teléfono: ${telefono}\n`;
-        mensaje += `Dirección: ${direccion}\n`;
-        mensaje += `Barrio: ${barrio}\n`;
-      }
       if (nota) {
         mensaje += `Nota: ${nota}\n`;
       }
@@ -168,9 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
         mensaje += 'Pedido: (No se seleccionaron productos)\n';
       }
 
-      // Abrir WhatsApp con tu número real
       const encodedMsg = encodeURIComponent(mensaje);
-      const whatsappNumber = '573018348558'; // +57 301 834 8558
+      const whatsappNumber = '573018348558';
       const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
       window.open(url, '_blank');
     });
