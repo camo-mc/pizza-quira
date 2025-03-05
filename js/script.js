@@ -163,4 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         mensaje += `Total: $${total.toLocaleString()}\n`;
       } else {
-        
+        mensaje += 'Pedido: (No se seleccionaron productos)\n';
+      }
+
+      // Abrir WhatsApp con el número real
+      const encodedMsg = encodeURIComponent(mensaje);
+      const whatsappNumber = '573018348558'; // +57 301 834 8558
+      const url = `https://wa.me/${whatsappNumber}?text=${encodedMsg}`;
+      window.open(url, '_blank');
+    });
+  }
+});
