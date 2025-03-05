@@ -7,25 +7,84 @@ function goToForm(page) {
 
 let cart = [];
 
-// Agrega un producto al carrito (cada clic crea una nueva entrada).
+// Agrega un producto al carrito (cada clic crea una nueva entrada)
 function addToCart(itemName, price, qtyId) {
   let qty = 1;
   if (qtyId) {
     const qtyInput = document.getElementById(qtyId);
     qty = parseInt(qtyInput.value, 10) || 1;
   }
+  // Agrega la entrada sin combinar duplicados
   cart.push({ name: itemName, price: price, qty: qty });
   localStorage.setItem("pizzaCart", JSON.stringify(cart));
   alert("Producto agregado: " + itemName + " ($" + price + ")");
+  updateFloatingCartBtn();
 }
 
-// Agrega un producto promocional y redirige (puedes ajustar la redirección si es necesario)
+// Agrega un producto promocional y redirige.
 function addPromoAndGo(itemName, price) {
   addToCart(itemName, price, null);
-  goToForm("opcion.html"); // o la página que prefieras para continuar
+  goToForm("opcion.html"); // Cambia la redirección si es necesario.
 }
 
-// Función para inicializar la sección interactiva de Pizzas en la carta.
+// Renderiza el carrito en el elemento correspondiente.
+function renderCart() {
+  const cartItemsUl = document.getElementById("cartItems");
+  const cartEmptyMsg = document.getElementById("cartEmptyMessage");
+  const cartTotalSpan = document.getElementById("cartTotal");
+
+  if (!cartItemsUl || !cartEmptyMsg || !cartTotalSpan) return;
+
+  cartItemsUl.innerHTML = "";
+  if (cart.length === 0) {
+    cartEmptyMsg.style.display = "block";
+    cartTotalSpan.textContent = "0";
+  } else {
+    cartEmptyMsg.style.display = "none";
+    let total = 0;
+    cart.forEach((product, index) => {
+      const li = document.createElement("li");
+      li.className = "list-group-item d-flex justify-content-between align-items-center";
+      li.textContent = `${product.qty} x ${product.name} ($${product.price})`;
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "X";
+      removeBtn.className = "btn btn-sm btn-danger ms-2";
+      removeBtn.onclick = function () {
+        cart.splice(index, 1);
+        localStorage.setItem("pizzaCart", JSON.stringify(cart));
+        renderCart();
+        updateFloatingCartBtn();
+      };
+      li.appendChild(removeBtn);
+      cartItemsUl.appendChild(li);
+      total += product.price * product.qty;
+    });
+    cartTotalSpan.textContent = total.toLocaleString();
+  }
+}
+
+// Actualiza el contador del botón flotante del carrito.
+function updateFloatingCartBtn() {
+  const btn = document.getElementById("floatingCartCount");
+  if (btn) {
+    let totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+    btn.textContent = totalQty;
+  }
+}
+
+// Carga el carrito desde localStorage.
+function loadCartFromStorage() {
+  const storedCart = localStorage.getItem("pizzaCart");
+  if (storedCart) {
+    cart = JSON.parse(storedCart);
+  } else {
+    cart = [];
+  }
+  renderCart();
+  updateFloatingCartBtn();
+}
+
+// Función para inicializar la sección interactiva de Pizzas (en carta.html)
 function initializePizzaSection() {
   // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
@@ -66,7 +125,7 @@ function initializePizzaSection() {
       } else {
         options = window.classicFlavors.concat(window.gourmetFlavors);
       }
-      options.forEach(function(flavor) {
+      options.forEach(function (flavor) {
         const opt = document.createElement("option");
         opt.value = flavor;
         opt.textContent = flavor;
@@ -109,8 +168,13 @@ function initializePizzaSection() {
     }
     document.getElementById("calculatedPrice").textContent = "Precio: $" + price.toLocaleString();
   }
-
+  
   document.getElementById("pizzaSize").addEventListener("change", updateFlavorOptions);
 }
 
-// Puedes agregar otras funciones para cargar el carrito o realizar otras tareas si es necesario.
+// Inicializa el carrito al cargar la página
+document.addEventListener("DOMContentLoaded", function() {
+  if (document.getElementById("cartItems")) {
+    loadCartFromStorage();
+  }
+});
