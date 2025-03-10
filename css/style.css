@@ -72,17 +72,21 @@ body {
 #floatingCartBtn {
   position: fixed;
   bottom: 20px;
-  left: 20px;              /* Ubicado en la parte izquierda */
-  background-color: #dc3545;  /* Color de fondo (rojo, similar a Bootstrap danger) */
+  left: 20px;
+  background-color: #dc3545;
   color: #fff;
-  padding: 12px 20px;      /* Más grande */
-  border-radius: 50px;     /* Borde redondeado */
+  padding: 12px 20px;
+  border-radius: 50px;
   font-size: 1.2rem;
   cursor: pointer;
   z-index: 1000;
-  border: none;            /* Quita cualquier borde que pueda aparecer */
+  border: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  display: inline-block;       /* Para que se ajuste al contenido */
+  width: auto !important;      /* Fuerza que no se expanda */
+  white-space: nowrap;         /* Evita que el contenido se quiebre en varias líneas */
 }
+
 #floatingCartBtn:hover {
   background-color: #e0a800;
 }
