@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Contenedores para componentes comunes -->
+  <!-- Contenedores para header y footer -->
   <div id="headerContainer"></div>
   
   <!-- Banner -->
@@ -24,7 +24,7 @@
     </marquee>
   </div>
   
-  <!-- Promociones (solo Promo 1 y Promo 2) -->
+  <!-- Promociones: Solo se muestran Promo 1 y Promo 2 -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
@@ -38,7 +38,7 @@
       </div>
     </div>
     
-    <!-- Sección de Carta cargada dinámicamente -->
+    <!-- Sección de Carta -->
     <div id="cartaSection"></div>
   </main>
   
@@ -47,17 +47,18 @@
     <span id="floatingCartCount">0</span> 🛒
   </div>
   
-  <!-- Botón de WhatsApp (opcional, si se quiere mantener en todas las páginas) -->
+  <!-- Botón de WhatsApp -->
   <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" title="Chatea con nosotros por WhatsApp">
     <img src="img/whatsapp-icon.png" alt="WhatsApp">
   </a>
   
+  <!-- Contenedor para footer -->
   <div id="footerContainer"></div>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
   <script>
-    // Cargar carta.html dinámicamente y luego inicializar la sección de pizzas si es necesario.
+    // Cargar carta.html y luego inicializar la sección de pizzas
     fetch('carta.html')
       .then(response => response.text())
       .then(data => {
