@@ -85,3 +85,15 @@ body {
 #floatingCartBtn:hover {
   background-color: #e0a800;
 }
+
+/* Botones de acción parpadeantes */
+.btn-action {
+  animation: blink 1s infinite;
+  font-size: 1.1rem;
+  padding: 0.8rem 1.2rem;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
