@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="Carrito de Compras - Pizza Quira">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrito - Pizza Quira</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Se cargarán los componentes comunes -->
+  <div id="headerContainer"></div>
+  
+  <main class="container mt-5 pt-5">
+    <h2 class="text-danger mb-4">Tu Carrito</h2>
+    <div id="cartItemsContainer"></div>
+    <p id="cartEmptyMessage" class="text-muted" style="display:none;">El carrito está vacío.</p>
+    <button class="btn btn-primary mt-3" onclick="window.location.href='index.html'">Volver a la tienda</button>
+  </main>
+  
+  <div id="footerContainer"></div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/script.js"></script>
+  <script>
+    // Función para renderizar el carrito en carrito.html
+    function renderCart() {
+      const cart = localStorage.getItem('cart') ? JSON.parse(localStorage.getItem('cart')) : [];
+      const container = document.getElementById('cartItemsContainer');
+      const emptyMsg = document.getElementById('cartEmptyMessage');
+      container.innerHTML = '';
+      if (cart.length === 0) {
+        emptyMsg.style.display = 'block';
+      } else {
+        emptyMsg.style.display = 'none';
+        cart.forEach((item, index) => {
+          const div = document.createElement('div');
+          div.className = "d-flex justify-content-between align-items-center border p-2 mb-2";
+          div.innerHTML = `<span>${item.itemName} (x${item.qty}) - $${item.price.toLocaleString()}</span>
+                           <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Eliminar</button>`;
+          container.appendChild(div);
+        });
+      }
+    }
+    
+    // Función para eliminar un elemento del carrito
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+      updateCartCount();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCommonComponents();
+      renderCart();
+    });
+  </script>
+</body>
+</html>
