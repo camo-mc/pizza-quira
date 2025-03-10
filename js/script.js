@@ -24,8 +24,8 @@ function goToForm(url) {
 
 // Función para agregar producto al carrito (lógica simplificada)
 function addToCart(itemName, price, qtyInputId) {
-  // Aquí se debe implementar la lógica real del carrito
-  // Por ejemplo, actualizar la lista de productos, contador, total, etc.
+  // Aquí se debe implementar la lógica real del carrito:
+  // Ejemplo: actualizar un array, contador y total en la UI.
   showToast(`Se agregó ${itemName} al carrito`);
 }
 
@@ -49,13 +49,12 @@ function sendPedidoWhatsApp(e) {
 }
 
 // Lógica para la sección de pizzas
-
 function initializePizzaSection() {
   // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
   window.gourmetFlavors = ["Costillas BBQ", "Peperoni", "Pollo Teriyaky", "Ranchera Mix", "Pizzaquira", "Oreo"];
 
-  // Función que actualiza los desplegables de sabores según el tamaño seleccionado
+  // Función para actualizar los desplegables de sabores según el tamaño seleccionado
   function updateFlavorOptions() {
     const size = document.getElementById("pizzaSize").value;
     const container = document.getElementById("flavorContainer");
@@ -120,7 +119,7 @@ function initializePizzaSection() {
     document.getElementById("calculatedPrice").textContent = "Precio: $" + price.toLocaleString();
   }
   
-  // Asignar evento change al select de tamaño
+  // Asignar el evento change al select de tamaño
   const pizzaSizeSelect = document.getElementById("pizzaSize");
   if (pizzaSizeSelect) {
     pizzaSizeSelect.addEventListener("change", updateFlavorOptions);
