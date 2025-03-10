@@ -1,5 +1,7 @@
 // js/script.js
 
+// --- COMPONENTES COMUNES ---
+
 // Función para cargar componentes comunes (header y footer)
 function loadCommonComponents() {
   fetch('common/header.html')
@@ -17,19 +19,50 @@ function loadCommonComponents() {
     .catch(error => console.error('Error cargando footer:', error));
 }
 
-// Función para redirigir a la página de formulario (domicilio o recoger)
+// --- NAVEGACIÓN ---
+
+// Función para redirigir a otra página
 function goToForm(url) {
   window.location.href = url;
 }
 
-// Función para agregar producto al carrito (lógica simplificada)
-function addToCart(itemName, price, qtyInputId) {
-  // Aquí se debe implementar la lógica real del carrito:
-  // Ejemplo: actualizar un array, contador y total en la UI.
-  showToast(`Se agregó ${itemName} al carrito`);
+// --- GESTIÓN DEL CARRITO ---
+
+// Obtiene el carrito actual desde localStorage (o un array vacío)
+function getCart() {
+  const cart = localStorage.getItem('cart');
+  return cart ? JSON.parse(cart) : [];
 }
 
-// Función para mostrar notificación tipo toast
+// Guarda el carrito en localStorage
+function saveCart(cart) {
+  localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+// Agrega un producto al carrito
+function addToCart(itemName, price, qty = 1) {
+  const cart = getCart();
+  // Puedes mejorar la lógica: sumar cantidad si el producto ya existe, etc.
+  cart.push({ itemName, price, qty });
+  saveCart(cart);
+  showToast(`Se agregó ${itemName} al carrito`);
+  updateCartCount();
+}
+
+// Actualiza el contador del carrito (mostrado en el botón flotante)
+function updateCartCount() {
+  const cart = getCart();
+  let count = 0;
+  cart.forEach(item => count += item.qty);
+  const countElem = document.getElementById('floatingCartCount');
+  if (countElem) {
+    countElem.textContent = count;
+  }
+}
+
+// --- NOTIFICACIONES (TOASTS) ---
+
+// Función para mostrar una notificación tipo toast
 function showToast(message) {
   const toast = document.createElement('div');
   toast.className = 'toast-message';
@@ -38,23 +71,26 @@ function showToast(message) {
   setTimeout(() => { toast.remove(); }, 3000);
 }
 
-// Función para enviar el pedido a WhatsApp
+// --- ENVÍO DEL PEDIDO A WHATSAPP ---
+
 function sendPedidoWhatsApp(e) {
   e.preventDefault();
   const nombre = document.getElementById('nombre') ? document.getElementById('nombre').value : '';
   const email = document.getElementById('email') ? document.getElementById('email').value : '';
   const nota = document.getElementById('nota') ? document.getElementById('nota').value : '';
+  // Opcional: se pueden incluir otros campos (teléfono, dirección, etc.)
   const mensaje = `Pedido de ${nombre}%0ACorreo: ${email}%0ANota: ${nota}`;
   window.open(`https://wa.me/573018348558?text=${encodeURIComponent(mensaje)}`, '_blank');
 }
 
-// Lógica para la sección de pizzas
+// --- SECCIÓN DE PIZZAS ---
+
 function initializePizzaSection() {
   // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
   window.gourmetFlavors = ["Costillas BBQ", "Peperoni", "Pollo Teriyaky", "Ranchera Mix", "Pizzaquira", "Oreo"];
 
-  // Función para actualizar los desplegables de sabores según el tamaño seleccionado
+  // Función que actualiza los desplegables de sabores según el tamaño seleccionado
   function updateFlavorOptions() {
     const size = document.getElementById("pizzaSize").value;
     const container = document.getElementById("flavorContainer");
@@ -130,7 +166,7 @@ function initializePizzaSection() {
 function addPizzaToCart() {
   const size = document.getElementById("pizzaSize").value;
   if (!size) {
-    alert("Seleccione un tamaño para la pizza.");
+    showToast("Seleccione un tamaño para la pizza.");
     return;
   }
   let dropdownCount = size === "porcion" ? 1 : (size === "personal" || size === "mediana" ? 2 : 3);
@@ -138,25 +174,27 @@ function addPizzaToCart() {
   for (let i = 1; i <= dropdownCount; i++) {
     const flavor = document.getElementById("flavor" + i).value;
     if (!flavor) {
-      alert("Seleccione el sabor en la opción " + i);
+      showToast("Seleccione el sabor en la opción " + i);
       return;
     }
     flavors.push(flavor);
   }
   let priceText = document.getElementById("calculatedPrice").textContent;
   if (!priceText) {
-    alert("No se pudo calcular el precio.");
+    showToast("No se pudo calcular el precio.");
     return;
   }
   let price = parseInt(priceText.replace(/[^0-9]/g, ""), 10);
   const itemName = "Pizza " + size.charAt(0).toUpperCase() + size.slice(1) + " (" + flavors.join(", ") + ")";
-  addToCart(itemName, price, null);
-  alert("Pizza agregada al carrito: " + itemName + " - $" + price.toLocaleString());
+  addToCart(itemName, price);
+  showToast("Pizza agregada: " + itemName);
 }
 
-// Eventos al cargar la página
+// --- EVENTOS AL CARGAR LA PÁGINA ---
+
 document.addEventListener('DOMContentLoaded', function() {
   loadCommonComponents();
+  updateCartCount();
 
   const btnEnviar = document.getElementById('btnEnviarPedido');
   if (btnEnviar) {
@@ -166,10 +204,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const floatingCartBtn = document.getElementById('floatingCartBtn');
   if (floatingCartBtn) {
     floatingCartBtn.addEventListener('click', function() {
-      const cartContainer = document.getElementById('cartContainer');
-      if (cartContainer) {
-        cartContainer.scrollIntoView({ behavior: 'smooth' });
-      }
+      window.location.href = "carrito.html";
     });
   }
 });
