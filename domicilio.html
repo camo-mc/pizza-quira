@@ -2,18 +2,19 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="description" content="Formulario de entrega a domicilio - Pizza Quira">
+  <meta name="description" content="Entrega a Domicilio - Pizza Quira">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrega a Domicilio - Pizza Quira</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <!-- Header (se carga dinámicamente) -->
   <div id="headerContainer"></div>
   
   <main class="container mt-5 pt-5">
     <h2 class="text-danger mb-3">Entrega a Domicilio</h2>
-    <!-- Formulario de domicilio -->
+    <!-- Formulario de Domicilio -->
     <form id="domicilioForm" class="row g-3 mb-4">
       <div class="col-md-6">
         <label for="nombre" class="form-label fw-bold">Nombre Completo</label>
@@ -51,36 +52,22 @@
       </div>
     </form>
     
-    <hr class="my-4">
-    
-    <!-- Sección de Carta cargada dinámicamente -->
+    <!-- (Opcional) Sección de Carta para agregar productos -->
     <div id="cartaSection"></div>
     
-    <!-- Carrito -->
-    <h3 class="text-danger">Tu Pedido</h3>
-    <div id="cartContainer" class="mb-4">
-      <ul id="cartItems" class="list-group mb-2"></ul>
-      <p id="cartEmptyMessage" class="text-muted">El carrito está vacío.</p>
-      <div class="d-flex justify-content-between align-items-center">
-        <strong>Total: $<span id="cartTotal">0</span></strong>
-        <button id="btnEnviarPedido" class="btn btn-warning fw-bold">Enviar Pedido</button>
-      </div>
+    <!-- Botón "Ver Pedido" que redirige al carrito -->
+    <div class="d-flex justify-content-center my-4">
+      <button class="btn btn-primary fw-bold" onclick="window.location.href='carrito.html'">Ver Pedido</button>
     </div>
   </main>
   
-  <div id="floatingCartBtn" style="position: fixed; bottom: 20px; right: 20px; cursor: pointer;">
-    <span id="floatingCartCount">0</span> 🛒
-  </div>
-  
-  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn whatsapp-animated" target="_blank" title="Chatea con nosotros por WhatsApp">
-    <img src="img/whatsapp-icon.png" alt="WhatsApp">
-  </a>
-  
+  <!-- Footer (se carga dinámicamente) -->
   <div id="footerContainer"></div>
   
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
   <script>
+    // Cargar carta.html para la sección de productos (si deseas mostrarla)
     fetch('carta.html')
       .then(response => response.text())
       .then(data => {
