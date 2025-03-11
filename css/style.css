@@ -69,6 +69,7 @@ body {
 }
 
 /* Botón flotante del carrito (ahora en la esquina inferior izquierda) */
+
 #floatingCartBtn {
   position: fixed;
   bottom: 20px;
@@ -82,14 +83,12 @@ body {
   z-index: 1000;
   border: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  display: inline-block;       /* Para que se ajuste al contenido */
-  width: auto !important;      /* Fuerza que no se expanda */
-  white-space: nowrap;         /* Evita que el contenido se quiebre en varias líneas */
+  display: inline-block !important;   /* Forzamos inline-block */
+  width: auto !important;              /* Evitamos que se expanda */
+  max-width: none !important;
+  white-space: nowrap;
 }
 
-#floatingCartBtn:hover {
-  background-color: #e0a800;
-}
 
 /* Botones de acción parpadeantes */
 .btn-action {
