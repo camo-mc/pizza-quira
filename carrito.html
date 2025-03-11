@@ -14,14 +14,21 @@
   
   <main class="container mt-5 pt-5">
     <h2 class="text-danger mb-4">Tu Carrito</h2>
+    <!-- Sección que muestra los productos agregados al carrito -->
     <div id="cartItemsContainer"></div>
     <p id="cartEmptyMessage" class="text-muted" style="display:none;">El carrito está vacío.</p>
     
     <!-- Botones para Enviar Pedido y Agregar Más -->
     <div class="d-flex gap-2 mt-3">
       <button class="btn btn-success" onclick="sendCartToWhatsApp()">Enviar Pedido</button>
-      <button class="btn btn-primary" onclick="window.location.href='index.html'">Agregar Más</button>
+      <button class="btn btn-primary" onclick="scrollToProducts()">Agregar Más</button>
     </div>
+    
+    <!-- Sección de productos (Carta) -->
+    <section id="productosSection" class="mt-5">
+      <h2 class="text-danger mb-4">Lista de Productos</h2>
+      <div id="cartaSection"></div>
+    </section>
   </main>
   
   <!-- Footer -->
@@ -43,27 +50,4 @@
         cart.forEach((item, index) => {
           const div = document.createElement('div');
           div.className = "d-flex justify-content-between align-items-center border p-2 mb-2";
-          div.innerHTML = `<span>${item.itemName} (x${item.qty}) - $${item.price.toLocaleString()}</span>
-                           <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Eliminar</button>`;
-          container.appendChild(div);
-        });
-      }
-    }
-    
-    // Función para eliminar un elemento del carrito
-    function removeItem(index) {
-      const cart = JSON.parse(localStorage.getItem('cart'));
-      cart.splice(index, 1);
-      localStorage.setItem('cart', JSON.stringify(cart));
-      renderCart();
-      updateCartCount();
-    }
-    
-    document.addEventListener('DOMContentLoaded', function() {
-      loadCommonComponents();
-      renderCart();
-      updateCartCount();
-    });
-  </script>
-</body>
-</html>
+          div.innerHTML = `<span>${item.
