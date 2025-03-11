@@ -1,8 +1,8 @@
-// js/script.js
+
+   // js/script.js
 
 // --- COMPONENTES COMUNES ---
 
-// Función para cargar componentes comunes (header y footer)
 function loadCommonComponents() {
   fetch('common/header.html')
     .then(response => response.text())
@@ -21,35 +21,30 @@ function loadCommonComponents() {
 
 // --- NAVEGACIÓN ---
 
-// Función para redirigir a otra página
 function goToForm(url) {
   window.location.href = url;
 }
 
 // --- GESTIÓN DEL CARRITO ---
 
-// Obtiene el carrito actual desde localStorage (o un array vacío)
 function getCart() {
   const cart = localStorage.getItem('cart');
   return cart ? JSON.parse(cart) : [];
 }
 
-// Guarda el carrito en localStorage
 function saveCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// Agrega un producto al carrito
 function addToCart(itemName, price, qty = 1) {
   const cart = getCart();
-  // Puedes mejorar la lógica: sumar cantidad si el producto ya existe, etc.
+  // Si el producto ya existe, sumar cantidad (opcional)
   cart.push({ itemName, price, qty });
   saveCart(cart);
   showToast(`Se agregó ${itemName} al carrito`);
   updateCartCount();
 }
 
-// Actualiza el contador del carrito (mostrado en el botón flotante)
 function updateCartCount() {
   const cart = getCart();
   let count = 0;
@@ -62,7 +57,6 @@ function updateCartCount() {
 
 // --- NOTIFICACIONES (TOASTS) ---
 
-// Función para mostrar una notificación tipo toast
 function showToast(message) {
   const toast = document.createElement('div');
   toast.className = 'toast-message';
@@ -71,26 +65,30 @@ function showToast(message) {
   setTimeout(() => { toast.remove(); }, 3000);
 }
 
-// --- ENVÍO DEL PEDIDO A WHATSAPP ---
+// --- ENVÍO DEL PEDIDO A WHATSAPP (del Carrito) ---
 
-function sendPedidoWhatsApp(e) {
-  e.preventDefault();
-  const nombre = document.getElementById('nombre') ? document.getElementById('nombre').value : '';
-  const email = document.getElementById('email') ? document.getElementById('email').value : '';
-  const nota = document.getElementById('nota') ? document.getElementById('nota').value : '';
-  // Opcional: se pueden incluir otros campos (teléfono, dirección, etc.)
-  const mensaje = `Pedido de ${nombre}%0ACorreo: ${email}%0ANota: ${nota}`;
-  window.open(`https://wa.me/573018348558?text=${encodeURIComponent(mensaje)}`, '_blank');
+function sendCartToWhatsApp() {
+  const cart = getCart();
+  if (!cart || cart.length === 0) {
+    showToast("El carrito está vacío.");
+    return;
+  }
+  let mensaje = "Pedido:%0A";
+  let total = 0;
+  cart.forEach(item => {
+    mensaje += `${item.itemName} x${item.qty} - $${item.price.toLocaleString()}%0A`;
+    total += item.price * item.qty;
+  });
+  mensaje += `Total: $${total.toLocaleString()}`;
+  window.open(`https://wa.me/573018348558?text=${mensaje}`, '_blank');
 }
 
 // --- SECCIÓN DE PIZZAS ---
 
 function initializePizzaSection() {
-  // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
   window.gourmetFlavors = ["Costillas BBQ", "Peperoni", "Pollo Teriyaky", "Ranchera Mix", "Pizzaquira", "Oreo"];
 
-  // Función que actualiza los desplegables de sabores según el tamaño seleccionado
   function updateFlavorOptions() {
     const size = document.getElementById("pizzaSize").value;
     const container = document.getElementById("flavorContainer");
@@ -126,7 +124,6 @@ function initializePizzaSection() {
     updatePrice();
   }
   
-  // Función para calcular y mostrar el precio según el tamaño y sabores seleccionados
   function updatePrice() {
     const size = document.getElementById("pizzaSize").value;
     if (!size) {
@@ -155,14 +152,12 @@ function initializePizzaSection() {
     document.getElementById("calculatedPrice").textContent = "Precio: $" + price.toLocaleString();
   }
   
-  // Asignar el evento change al select de tamaño
   const pizzaSizeSelect = document.getElementById("pizzaSize");
   if (pizzaSizeSelect) {
     pizzaSizeSelect.addEventListener("change", updateFlavorOptions);
   }
 }
 
-// Función para agregar la pizza al carrito usando los datos seleccionados
 function addPizzaToCart() {
   const size = document.getElementById("pizzaSize").value;
   if (!size) {
@@ -190,19 +185,18 @@ function addPizzaToCart() {
   showToast("Pizza agregada: " + itemName);
 }
 
-// --- EVENTOS AL CARGAR LA PÁGINA ---
-
 document.addEventListener('DOMContentLoaded', function() {
   loadCommonComponents();
   updateCartCount();
-
+  
   const btnEnviar = document.getElementById('btnEnviarPedido');
   if (btnEnviar) {
     btnEnviar.addEventListener('click', sendPedidoWhatsApp);
   }
-
+  
   const floatingCartBtn = document.getElementById('floatingCartBtn');
   if (floatingCartBtn) {
+    // Si deseas que el botón flotante redirija al carrito:
     floatingCartBtn.addEventListener('click', function() {
       window.location.href = "carrito.html";
     });
