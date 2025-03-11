@@ -51,7 +51,7 @@
     </div>
     
     <!-- Sección de Carta -->
-    <div id="cartaSection"></div>
+  
   </main>
   
   <!-- Botón flotante del carrito (ubicado en la esquina inferior izquierda) -->
@@ -70,17 +70,6 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
-  <script>
-    // Cargar carta.html y luego inicializar la sección de pizzas
-    fetch('carta.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('cartaSection').innerHTML = data;
-        if (typeof initializePizzaSection === "function") {
-          initializePizzaSection();
-        }
-      })
-      .catch(error => console.error('Error al cargar la carta:', error));
-  </script>
+
 </body>
 </html>
