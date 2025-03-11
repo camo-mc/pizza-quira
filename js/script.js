@@ -46,14 +46,18 @@ function updateCartCount() {
 }
 
 function addToCart(itemName, price, qty = 1) {
+  // Si la cantidad no es válida (null, 0, o no es número), se asigna 1.
+  if (!qty || typeof qty !== 'number' || qty <= 0) {
+    qty = 1;
+  }
   const cart = getCart();
-  // Puedes agregar lógica para sumar cantidades si el producto ya existe.
+  // Aquí podrías agregar lógica para sumar cantidades si el mismo producto ya existe
   cart.push({ itemName, price, qty });
   saveCart(cart);
   showToast(`Se agregó ${itemName} al carrito`);
   updateCartCount();
   
-  // Si estamos en la página del carrito, se vuelve a renderizar
+  // Si estamos en la página del carrito, actualizamos la lista
   if (document.getElementById('cartItemsContainer')) {
     renderCart();
   }
@@ -104,7 +108,6 @@ function sendCartToWhatsApp() {
   });
   mensaje += `%0ATotal: $${total.toLocaleString()}`;
   
-  // Incluir información adicional (por ejemplo, datos de recogida) si existe
   const recogerInfoString = localStorage.getItem('recogerInfo');
   if (recogerInfoString) {
     const info = JSON.parse(recogerInfoString);
@@ -131,7 +134,6 @@ function showToast(message) {
 // SECCIÓN DE PIZZAS
 // ----------------------
 function initializePizzaSection() {
-  // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
   window.gourmetFlavors = ["Costillas BBQ", "Peperoni", "Pollo Teriyaky", "Ranchera Mix", "Pizzaquira", "Oreo"];
   
@@ -246,4 +248,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
- 
