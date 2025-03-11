@@ -14,16 +14,20 @@
   <!-- Header cargado dinámicamente -->
   <div id="headerContainer"></div>
   
-  <!-- Banner -->
-  <div class="mt-5">
+  <!-- Sección de botones de entrega y recogida, ubicados debajo del header y antes del banner -->
+  <section class="container my-3 text-center">
+    <button class="btn btn-warning fw-bold btn-action me-2" onclick="window.location.href='domicilio.html'">
+      Entrega a Domicilio
+    </button>
+    <button class="btn btn-warning fw-bold btn-action" onclick="window.location.href='recoger.html'">
+      Recoger en Tienda
+    </button>
+  </section>
+  
+  <!-- Banner principal -->
+  <div>
     <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" class="img-fluid w-100">
   </div>
-  
-  <!-- Sección de botones de entrega y recogida (solo en index) -->
-  <section class="container my-4 text-center">
-    <button class="btn btn-warning fw-bold btn-action me-2" onclick="window.location.href='domicilio.html'">Entrega a Domicilio</button>
-    <button class="btn btn-warning fw-bold btn-action" onclick="window.location.href='recoger.html'">Recoger en Tienda</button>
-  </section>
   
   <!-- Marquee -->
   <div class="marquee-container bg-light py-2">
