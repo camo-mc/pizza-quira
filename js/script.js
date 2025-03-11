@@ -1,8 +1,8 @@
+// js/script.js
 
-   // js/script.js
-
-// --- COMPONENTES COMUNES ---
-
+// ----------------------
+// COMPONENTES COMUNES
+// ----------------------
 function loadCommonComponents() {
   fetch('common/header.html')
     .then(response => response.text())
@@ -19,14 +19,13 @@ function loadCommonComponents() {
     .catch(error => console.error('Error cargando footer:', error));
 }
 
-// --- NAVEGACIÓN ---
-
 function goToForm(url) {
   window.location.href = url;
 }
 
-// --- GESTIÓN DEL CARRITO ---
-
+// ----------------------
+// GESTIÓN DEL CARRITO
+// ----------------------
 function getCart() {
   const cart = localStorage.getItem('cart');
   return cart ? JSON.parse(cart) : [];
@@ -34,15 +33,6 @@ function getCart() {
 
 function saveCart(cart) {
   localStorage.setItem('cart', JSON.stringify(cart));
-}
-
-function addToCart(itemName, price, qty = 1) {
-  const cart = getCart();
-  // Si el producto ya existe, sumar cantidad (opcional)
-  cart.push({ itemName, price, qty });
-  saveCart(cart);
-  showToast(`Se agregó ${itemName} al carrito`);
-  updateCartCount();
 }
 
 function updateCartCount() {
@@ -55,17 +45,50 @@ function updateCartCount() {
   }
 }
 
-// --- NOTIFICACIONES (TOASTS) ---
-
-function showToast(message) {
-  const toast = document.createElement('div');
-  toast.className = 'toast-message';
-  toast.textContent = message;
-  document.body.appendChild(toast);
-  setTimeout(() => { toast.remove(); }, 3000);
+function addToCart(itemName, price, qty = 1) {
+  const cart = getCart();
+  // Puedes agregar lógica para sumar cantidades si el producto ya existe.
+  cart.push({ itemName, price, qty });
+  saveCart(cart);
+  showToast(`Se agregó ${itemName} al carrito`);
+  updateCartCount();
+  
+  // Si estamos en la página del carrito, se vuelve a renderizar
+  if (document.getElementById('cartItemsContainer')) {
+    renderCart();
+  }
 }
 
-// --- ENVÍO DEL PEDIDO A WHATSAPP (del Carrito) ---
+function removeItem(index) {
+  const cart = getCart();
+  cart.splice(index, 1);
+  saveCart(cart);
+  renderCart();
+  updateCartCount();
+}
+
+function renderCart() {
+  const cart = getCart();
+  const container = document.getElementById('cartItemsContainer');
+  const emptyMsg = document.getElementById('cartEmptyMessage');
+  container.innerHTML = '';
+  let total = 0;
+  
+  if (cart.length === 0) {
+    emptyMsg.style.display = 'block';
+  } else {
+    emptyMsg.style.display = 'none';
+    cart.forEach((item, index) => {
+      total += item.price * item.qty;
+      const div = document.createElement('div');
+      div.className = "d-flex justify-content-between align-items-center border p-2 mb-2";
+      div.innerHTML = `<span>${item.itemName} (x${item.qty}) - $${item.price.toLocaleString()}</span>
+                       <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Eliminar</button>`;
+      container.appendChild(div);
+    });
+  }
+  document.getElementById('cartTotal').textContent = total.toLocaleString();
+}
 
 function sendCartToWhatsApp() {
   const cart = getCart();
@@ -79,16 +102,39 @@ function sendCartToWhatsApp() {
     mensaje += `${item.itemName} x${item.qty} - $${item.price.toLocaleString()}%0A`;
     total += item.price * item.qty;
   });
-  mensaje += `Total: $${total.toLocaleString()}`;
-  window.open(`https://wa.me/573018348558?text=${mensaje}`, '_blank');
+  mensaje += `%0ATotal: $${total.toLocaleString()}`;
+  
+  // Incluir información adicional (por ejemplo, datos de recogida) si existe
+  const recogerInfoString = localStorage.getItem('recogerInfo');
+  if (recogerInfoString) {
+    const info = JSON.parse(recogerInfoString);
+    mensaje += `%0A%0AInformación de Recogida:%0ANombre: ${info.nombre}%0ACorreo: ${info.email}`;
+    if (info.nota) {
+      mensaje += `%0ANota: ${info.nota}`;
+    }
+  }
+  window.open(`https://wa.me/573018348558?text=${encodeURIComponent(mensaje)}`, '_blank');
 }
 
-// --- SECCIÓN DE PIZZAS ---
+// ----------------------
+// NOTIFICACIONES (TOASTS)
+// ----------------------
+function showToast(message) {
+  const toast = document.createElement('div');
+  toast.className = 'toast-message';
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  setTimeout(() => { toast.remove(); }, 3000);
+}
 
+// ----------------------
+// SECCIÓN DE PIZZAS
+// ----------------------
 function initializePizzaSection() {
+  // Listas de sabores
   window.classicFlavors = ["Hawaiana", "Pollo", "Champiñones", "Carnes", "Mexicana", "Criolla", "Campesina"];
   window.gourmetFlavors = ["Costillas BBQ", "Peperoni", "Pollo Teriyaky", "Ranchera Mix", "Pizzaquira", "Oreo"];
-
+  
   function updateFlavorOptions() {
     const size = document.getElementById("pizzaSize").value;
     const container = document.getElementById("flavorContainer");
@@ -185,20 +231,19 @@ function addPizzaToCart() {
   showToast("Pizza agregada: " + itemName);
 }
 
+// ----------------------
+// EVENTOS AL CARGAR LA PÁGINA
+// ----------------------
 document.addEventListener('DOMContentLoaded', function() {
   loadCommonComponents();
   updateCartCount();
   
-  const btnEnviar = document.getElementById('btnEnviarPedido');
-  if (btnEnviar) {
-    btnEnviar.addEventListener('click', sendPedidoWhatsApp);
-  }
-  
   const floatingCartBtn = document.getElementById('floatingCartBtn');
   if (floatingCartBtn) {
-    // Si deseas que el botón flotante redirija al carrito:
     floatingCartBtn.addEventListener('click', function() {
       window.location.href = "carrito.html";
     });
   }
 });
+
+ 
