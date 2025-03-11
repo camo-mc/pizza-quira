@@ -50,4 +50,45 @@
         cart.forEach((item, index) => {
           const div = document.createElement('div');
           div.className = "d-flex justify-content-between align-items-center border p-2 mb-2";
-          div.innerHTML = `<span>${item.
+          div.innerHTML = `<span>${item.itemName} (x${item.qty}) - $${item.price.toLocaleString()}</span>
+                           <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">Eliminar</button>`;
+          container.appendChild(div);
+        });
+      }
+    }
+    
+    function removeItem(index) {
+      const cart = JSON.parse(localStorage.getItem('cart'));
+      cart.splice(index, 1);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      renderCart();
+      updateCartCount();
+    }
+    
+    // Función para hacer scroll a la sección de productos
+    function scrollToProducts() {
+      const productosSection = document.getElementById('productosSection');
+      if (productosSection) {
+        productosSection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+      loadCommonComponents();
+      renderCart();
+      updateCartCount();
+      
+      // Cargar carta.html y luego inicializar la sección de pizzas
+      fetch('carta.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('cartaSection').innerHTML = data;
+          if (typeof initializePizzaSection === "function") {
+            initializePizzaSection();
+          }
+        })
+        .catch(error => console.error('Error al cargar la carta:', error));
+    });
+  </script>
+</body>
+</html>
