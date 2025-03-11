@@ -83,9 +83,8 @@ body {
   z-index: 1000;
   border: none;
   box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-  display: inline-block !important;   /* Forzamos inline-block */
-  width: auto !important;              /* Evitamos que se expanda */
-  max-width: none !important;
+  display: inline-block !important;
+  width: fit-content !important;  /* Forzamos que el ancho se ajuste al contenido */
   white-space: nowrap;
 }
 
