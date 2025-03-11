@@ -11,18 +11,17 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Header cargado dinámicamente -->
+  <!-- Cargar el header exclusivo del index -->
   <div id="headerContainer"></div>
   
-  <!-- Sección de botones de entrega y recogida, ubicados debajo del header y antes del banner -->
-  <section class="container my-3 text-center">
-    <button class="btn btn-warning fw-bold btn-action me-2" onclick="window.location.href='domicilio.html'">
-      Entrega a Domicilio
-    </button>
-    <button class="btn btn-warning fw-bold btn-action" onclick="window.location.href='recoger.html'">
-      Recoger en Tienda
-    </button>
-  </section>
+  <script>
+    fetch('common/header-index.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('headerContainer').innerHTML = data;
+      })
+      .catch(error => console.error('Error al cargar el header-index:', error));
+  </script>
   
   <!-- Banner principal -->
   <div>
