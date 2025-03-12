@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Contenedor para el header exclusivo para index, oculto inicialmente -->
-  <div id="headerContainer" style="min-height:150px; visibility:hidden;"></div>
+  <!-- Contenedor para el header exclusivo para Index, oculto inicialmente -->
+  <div id="headerContainer" style="min-height:150px; display:none;"></div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       fetch('common/header-index.html')
@@ -25,7 +25,8 @@
         .then(data => {
           const headerContainer = document.getElementById('headerContainer');
           headerContainer.innerHTML = data;
-          headerContainer.style.visibility = 'visible';
+          headerContainer.style.display = 'block';
+          console.log("Header-index cargado correctamente.");
         })
         .catch(error => console.error('Error al cargar el header-index:', error));
     });
@@ -43,7 +44,7 @@
     </marquee>
   </div>
   
-  <!-- Contenido Principal: Promociones Especiales -->
+  <!-- Contenido Principal (Promociones Especiales) -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
