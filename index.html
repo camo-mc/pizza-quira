@@ -10,9 +10,9 @@
   <!-- Tu CSS personalizado -->
   <link rel="stylesheet" href="css/style.css">
   <style>
-    /* Ajustamos el padding del body para que el contenido no quede oculto detrás del navbar fijo */
+    /* Para que el contenido no quede oculto detrás del navbar fijo */
     body {
-      padding-top: 70px; /* Ajusta este valor según la altura real del navbar */
+      padding-top: 80px;
     }
   </style>
 </head>
@@ -21,18 +21,10 @@
   <header>
     <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="index.html">Pizza Quira</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIndex" aria-controls="navbarIndex" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarIndex">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
-            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
-            <li class="nav-item"><a class="nav-link" href="terminos.html">Términos</a></li>
-          </ul>
-          <div class="d-flex">
+        <!-- Sección izquierda: Marca y botones siempre visibles -->
+        <div class="d-flex align-items-center">
+          <a class="navbar-brand" href="index.html">Pizza Quira</a>
+          <div class="d-flex ms-3">
             <button class="btn btn-warning me-2" onclick="window.location.href='domicilio.html'">
               Entrega a Domicilio
             </button>
@@ -40,6 +32,19 @@
               Recoger en Tienda
             </button>
           </div>
+        </div>
+        <!-- Botón de hamburguesa para el menú colapsable -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIndex" aria-controls="navbarIndex" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Menú colapsable (en escritorio se muestra a la derecha) -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarIndex">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
+            <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
+            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
+            <li class="nav-item"><a class="nav-link" href="terminos.html">Términos</a></li>
+          </ul>
         </div>
       </div>
     </nav>
@@ -57,40 +62,4 @@
     </marquee>
   </div>
 
-  <!-- Contenido Principal: Promociones Especiales -->
-  <main class="container my-4">
-    <h2 class="text-danger mb-4">Promociones Especiales</h2>
-    <div class="row g-4">
-      <div class="col-12 col-md-6 text-center">
-        <img src="img/promo1.jpg" alt="Promo 1" class="img-fluid mb-2" style="cursor:pointer" onclick="addToCart('Promo 1 Especial', 25000)">
-        <p class="fw-bold text-danger">Promo 1 Especial - $25,000</p>
-      </div>
-      <div class="col-12 col-md-6 text-center">
-        <img src="img/promo2.jpg" alt="Promo 2" class="img-fluid mb-2" style="cursor:pointer" onclick="addToCart('Promo 2 Familiar', 32000)">
-        <p class="fw-bold text-danger">Promo 2 Familiar - $32,000</p>
-      </div>
-    </div>
-  </main>
-
-  <!-- Botón flotante del carrito -->
-  <div id="floatingCartBtn">
-    🛒 Carrito
-  </div>
-
-  <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn" target="_blank" title="Chatea con nosotros por WhatsApp">
-    <img src="img/whatsapp-icon.png" alt="WhatsApp">
-  </a>
-
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center p-3 mt-4">
-    <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
-    <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
-  </footer>
-
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Nuestro script principal -->
-  <script src="js/script.js"></script>
-</body>
-</html>
+  <!-- Conten
