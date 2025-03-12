@@ -18,23 +18,40 @@
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Pizza Quira - Hacer Pedido</h1>
-      <nav>
+  <header class="header">
+    <div class="container header-content">
+      <!-- Logo -->
+      <div class="logo-container">
+        <a href="index.html">
+          <img
+            src="assets/images/quira.png"
+            alt="Pizza Quira Logo"
+            class="logo"
+          />
+        </a>
+      </div>
+      <!-- Botón hamburguesa -->
+      <button class="hamburger" id="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <!-- Menú de navegación -->
+      <nav class="nav-menu" id="nav-menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="terminos.html">Términos y Condiciones</a></li>
           <li><a href="carta.html">Carta</a></li>
           <li><a href="contactanos.html">Contáctanos</a></li>
+          <li><a class="btn-pedido-nav" href="hacer-pedido.html">Hacer Pedido</a></li>
         </ul>
       </nav>
     </div>
   </header>
 
-  <!-- Aplicación Vue -->
+  <!-- Vue App -->
   <div id="app" class="container">
-    <!-- Selección de método de entrega -->
+    <!-- Método de entrega -->
     <section class="entrega">
       <h2>Elige cómo recibir tu pedido</h2>
       <div class="opciones-entrega">
@@ -49,7 +66,7 @@
       </div>
     </section>
 
-    <!-- Formularios de datos -->
+    <!-- Formulario domicilio -->
     <section v-if="deliveryMethod === 'domicilio'" class="formulario">
       <h3>Datos para entrega a domicilio</h3>
       <form @submit.prevent>
@@ -92,6 +109,7 @@
       </form>
     </section>
 
+    <!-- Formulario tienda -->
     <section v-else-if="deliveryMethod === 'tienda'" class="formulario">
       <h3>Datos para recoger en tienda</h3>
       <form @submit.prevent>
@@ -114,7 +132,7 @@
       </form>
     </section>
 
-    <!-- Selección de Productos -->
+    <!-- Productos -->
     <section class="productos">
       <h2>Productos</h2>
       <!-- Pizzas -->
@@ -131,32 +149,42 @@
             <option value="familiar">Familiar</option>
           </select>
 
-          <!-- Selección de sabores -->
           <!-- Porción: 1 sabor -->
           <div v-if="pizza.tamano === 'porcion'">
-            <label for="pizza-sabor">Sabor:</label>
-            <select v-model="pizza.sabores[0]" id="pizza-sabor">
+            <label>Sabor (1):</label>
+            <select v-model="pizza.sabores[0]">
               <option disabled value="">Selecciona sabor</option>
-              <!-- Un solo sabor: puede ser clásico o gourmet -->
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name"
+                :key="flavor.name + 'porcion'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
             </select>
           </div>
 
-          <!-- Personal: 1 sabor (precio varía si es clásico o gourmet) -->
+          <!-- Personal: 2 sabores -->
           <div v-if="pizza.tamano === 'personal'">
-            <label for="pizza-sabor-personal">Sabor:</label>
-            <select v-model="pizza.sabores[0]" id="pizza-sabor-personal">
+            <label>Sabor 1:</label>
+            <select v-model="pizza.sabores[0]">
               <option disabled value="">Selecciona sabor</option>
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name"
+                :key="flavor.name + 'pers1'"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+
+            <label>Sabor 2:</label>
+            <select v-model="pizza.sabores[1]">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name + 'pers2'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
@@ -165,25 +193,24 @@
 
           <!-- Mediana: 2 sabores -->
           <div v-if="pizza.tamano === 'mediana'">
-            <label for="pizza-sabor1">Sabor 1:</label>
-            <select v-model="pizza.sabores[0]" id="pizza-sabor1">
+            <label>Sabor 1:</label>
+            <select v-model="pizza.sabores[0]">
               <option disabled value="">Selecciona sabor</option>
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name + '1'"
+                :key="flavor.name + 'med1'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
             </select>
-
-            <label for="pizza-sabor2">Sabor 2:</label>
-            <select v-model="pizza.sabores[1]" id="pizza-sabor2">
+            <label>Sabor 2:</label>
+            <select v-model="pizza.sabores[1]">
               <option disabled value="">Selecciona sabor</option>
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name + '2'"
+                :key="flavor.name + 'med2'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
@@ -192,37 +219,35 @@
 
           <!-- Familiar: 3 sabores -->
           <div v-if="pizza.tamano === 'familiar'">
-            <label for="pizza-sabor1-f">Sabor 1:</label>
-            <select v-model="pizza.sabores[0]" id="pizza-sabor1-f">
+            <label>Sabor 1:</label>
+            <select v-model="pizza.sabores[0]">
               <option disabled value="">Selecciona sabor</option>
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name + 'f1'"
+                :key="flavor.name + 'fam1'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
             </select>
-
-            <label for="pizza-sabor2-f">Sabor 2:</label>
-            <select v-model="pizza.sabores[1]" id="pizza-sabor2-f">
+            <label>Sabor 2:</label>
+            <select v-model="pizza.sabores[1]">
               <option disabled value="">Selecciona sabor</option>
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name + 'f2'"
+                :key="flavor.name + 'fam2'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
             </select>
-
-            <label for="pizza-sabor3-f">Sabor 3:</label>
-            <select v-model="pizza.sabores[2]" id="pizza-sabor3-f">
+            <label>Sabor 3:</label>
+            <select v-model="pizza.sabores[2]">
               <option disabled value="">Selecciona sabor</option>
               <option
                 v-for="flavor in allFlavors"
                 :value="flavor"
-                :key="flavor.name + 'f3'"
+                :key="flavor.name + 'fam3'"
               >
                 {{ flavor.name }} ({{ flavor.ingredients }})
               </option>
@@ -284,11 +309,25 @@
       </div>
       <p>Total: ${{ numberFormat(total) }}</p>
       <button @click="enviarPedido()">Enviar Pedido por WhatsApp</button>
-      <button @click="continuarPedido()">Agregar Más</button>
+      <!-- Se ha removido el botón "Agregar Más" -->
     </div>
   </div>
 
+  <footer class="container">
+    <p>El amor por la pizza nos une y nos alegra a cada bocado</p>
+    <p>Diseñada: 2025 www.checkinpos.co - Todos los derechos reservados</p>
+  </footer>
+
   <script src="assets/js/app.js"></script>
+  <script>
+    // Menú hamburguesa
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('nav-open');
+      hamburgerBtn.classList.toggle('is-active');
+    });
+  </script>
 </body>
 </html>
-
