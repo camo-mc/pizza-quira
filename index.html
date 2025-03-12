@@ -11,14 +11,14 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Contenedor para el header exclusivo para Index -->
+  <!-- Contenedor para el header exclusivo -->
   <div id="headerContainer"></div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       fetch('common/header-index.html')
         .then(response => {
           if (!response.ok) {
-            throw new Error('Error en la carga del header-index: ' + response.status);
+            throw new Error('Error al cargar el header-index: ' + response.status);
           }
           return response.text();
         })
@@ -82,8 +82,10 @@
       .catch(error => console.error('Error al cargar el footer:', error));
   </script>
   
-  <!-- Scripts de Bootstrap y nuestros scripts -->
+  <!-- Scripts de Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+  <!-- Nuestro script principal -->
   <script src="js/script.js"></script>
 </body>
 </html>
