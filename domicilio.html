@@ -5,8 +5,9 @@
   <meta name="description" content="Entrega a Domicilio - Pizza Quira">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrega a Domicilio - Pizza Quira</title>
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <!-- Se incluye el archivo de estilos principal -->
+  <!-- Archivo de estilos -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -72,9 +73,10 @@
   
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Nuestro script principal -->
   <script src="js/script.js"></script>
   <script>
-    // Cargar la sección de carta
+    // Cargar la sección de carta (si la hay)
     fetch('carta.html')
       .then(response => response.text())
       .then(data => {
@@ -84,36 +86,6 @@
         }
       })
       .catch(error => console.error('Error al cargar la carta:', error));
-    
-    // Función para validar el formulario, almacenar los datos y redirigir a "carrito.html"
-    function validateAndGoToCart() {
-      const form = document.getElementById('domicilioForm');
-      if (form.checkValidity()) {
-        // Recopilar datos del formulario
-        const formData = {
-          nombre: document.getElementById('nombre').value,
-          email: document.getElementById('email').value,
-          telefono: document.getElementById('telefono').value,
-          direccion: document.getElementById('direccion').value,
-          barrio: document.getElementById('barrio').value,
-          paymentMethod: document.getElementById('paymentMethod').value,
-          nota: document.getElementById('nota').value
-        };
-        // Guardar en localStorage para que la página carrito pueda acceder a estos datos
-        localStorage.setItem('domicilioData', JSON.stringify(formData));
-        // Redirigir a la página del carrito
-        window.location.href = 'carrito.html';
-      } else {
-        form.reportValidity();
-      }
-    }
-    
-    // Actualizar el contador del carrito (se asume que updateCartCount() está definida en script.js)
-    document.addEventListener('DOMContentLoaded', function() {
-      if (typeof updateCartCount === "function") {
-        updateCartCount();
-      }
-    });
   </script>
 </body>
 </html>
