@@ -20,47 +20,108 @@ body {
 }
 
 /* Header */
-header {
+.header {
   background: #d32f2f;
   color: #fff;
-  padding: 10px 0;
   animation: fadeIn 1s ease-in-out;
 }
-header .container {
+.header-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-header nav ul {
+.logo-container {
+  display: flex;
+  align-items: center;
+}
+.logo {
+  height: 50px;
+  cursor: pointer;
+}
+
+/* Botón hamburguesa */
+.hamburger {
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: none; /* se mostrará en responsive */
+  flex-direction: column;
+  justify-content: space-around;
+  height: 30px;
+  width: 35px;
+  padding: 0;
+}
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+.hamburger.is-active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+.hamburger.is-active span:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.is-active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Menú de navegación */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+.nav-menu ul {
   list-style: none;
   display: flex;
   flex-wrap: wrap;
 }
-header nav ul li {
-  margin-left: 15px;
-}
-header nav ul li a {
+.nav-menu ul li a {
   color: #fff;
   text-decoration: none;
   white-space: nowrap;
 }
-
-/* Top CTA */
-.top-cta {
-  text-align: center;
-  margin: 15px 0;
-}
-.btn-pedido {
+.btn-pedido-nav {
   background: #ffeb3b;
   color: #d32f2f;
-  padding: 12px 25px;
-  text-decoration: none;
-  font-weight: bold;
+  padding: 10px 15px;
   border-radius: 5px;
-  transition: background 0.3s;
+  font-weight: bold;
+  text-decoration: none;
 }
-.btn-pedido:hover {
-  background: #fdd835;
+
+/* Ocultar nav en mobile por defecto, se muestra con .nav-open */
+@media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-menu {
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background: #d32f2f;
+    flex-direction: column;
+    width: 200px;
+    height: 0;
+    overflow: hidden;
+    transition: height 0.3s ease;
+  }
+  .nav-menu ul {
+    flex-direction: column;
+    align-items: start;
+    margin-top: 10px;
+  }
+  .nav-menu ul li {
+    margin: 10px 0;
+    margin-left: 20px;
+  }
+  .nav-menu.nav-open {
+    height: 250px; /* Ajusta según lo que necesites */
+  }
 }
 
 /* Hero */
@@ -72,14 +133,13 @@ header nav ul li a {
   width: 100%;
   height: auto;
   display: block;
-  animation: fadeIn 1.5s ease-in-out;
 }
 
 /* Marquee */
 .marquee {
   background: #fbc02d;
   overflow: hidden;
-  height: 40px; /* altura del contenedor */
+  height: 40px;
   position: relative;
 }
 .marquee-inner {
@@ -95,7 +155,7 @@ header nav ul li a {
   line-height: 40px;
 }
 
-/* Combos */
+/* Combos, productos, etc. (similar a antes) */
 .combos h2,
 .sobre-nosotros h2,
 .productos h2 {
@@ -137,7 +197,7 @@ header nav ul li a {
 }
 .btn-mapa {
   display: inline-block;
-  background: #d32f2f;
+  background: #b71c1c;
   color: #fff;
   padding: 10px 15px;
   text-decoration: none;
@@ -172,18 +232,6 @@ header nav ul li a {
   margin: 5px 0;
   border: 1px solid #ccc;
   border-radius: 3px;
-}
-.formulario form button {
-  background: #d32f2f;
-  color: #fff;
-  padding: 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.formulario form button:hover {
-  background: #b71c1c;
 }
 
 /* Productos */
@@ -224,7 +272,6 @@ header nav ul li a {
   border-radius: 5px;
   z-index: 1000;
   max-width: 300px;
-  animation: fadeIn 1s ease-in-out;
 }
 .carrito-flotante h3 {
   margin-bottom: 10px;
@@ -284,16 +331,6 @@ footer {
 
 /* Responsive */
 @media (max-width: 768px) {
-  header .container {
-    flex-direction: column;
-  }
-  header nav ul {
-    flex-direction: column;
-    align-items: center;
-  }
-  .combo-imagenes img {
-    max-width: 100%;
-  }
   .carrito-flotante {
     right: 10px;
     bottom: 10px;
@@ -304,4 +341,3 @@ footer {
     gap: 10px;
   }
 }
-
