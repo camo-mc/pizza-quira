@@ -1,1 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Realiza tu pedido en Pizza Quira. Selecciona tus productos, define si es a domicilio o recogida y envía tu pedido por WhatsApp."
+  />
+  <title>Hacer Pedido - Pizza Quira Delivery</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <!-- Vue.js -->
+  <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>Pizza Quira - Hacer Pedido</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="carta.html">Carta</a></li>
+          <li><a href="contactanos.html">Contáctanos</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Aplicación Vue -->
+  <div id="app" class="container">
+    <!-- Selección de método de entrega -->
+    <section class="entrega">
+      <h2>Elige cómo recibir tu pedido</h2>
+      <div class="opciones-entrega">
+        <label>
+          <input type="radio" value="domicilio" v-model="deliveryMethod" /> A
+          Domicilio
+        </label>
+        <label>
+          <input type="radio" value="tienda" v-model="deliveryMethod" /> Recoger
+          en Tienda
+        </label>
+      </div>
+    </section>
+
+    <!-- Formularios de datos -->
+    <section v-if="deliveryMethod === 'domicilio'" class="formulario">
+      <h3>Datos para entrega a domicilio</h3>
+      <form @submit.prevent>
+        <input
+          type="text"
+          v-model="formDomicilio.nombre"
+          placeholder="Nombre"
+          required
+        />
+        <input
+          type="tel"
+          v-model="formDomicilio.telefono"
+          placeholder="Teléfono"
+          required
+        />
+        <input
+          type="text"
+          v-model="formDomicilio.direccion"
+          placeholder="Dirección"
+          required
+        />
+        <input
+          type="text"
+          v-model="formDomicilio.barrio"
+          placeholder="Barrio"
+          required
+        />
+        <select v-model="formDomicilio.pago" required>
+          <option value="">Medio de Pago</option>
+          <option value="Nequi">Nequi</option>
+          <option value="Daviplata">Daviplata</option>
+          <option value="Tarjeta">Tarjeta</option>
+          <option value="Transferencia">Transferencia</option>
+          <option value="Efectivo">Efectivo</option>
+        </select>
+        <textarea
+          v-model="formDomicilio.comentarios"
+          placeholder="Comentarios (apt, casa, torre, etc.)"
+        ></textarea>
+      </form>
+    </section>
+
+    <section v-else-if="deliveryMethod === 'tienda'" class="formulario">
+      <h3>Datos para recoger en tienda</h3>
+      <form @submit.prevent>
+        <input
+          type="text"
+          v-model="formTienda.nombre"
+          placeholder="Nombre"
+          required
+        />
+        <input
+          type="tel"
+          v-model="formTienda.telefono"
+          placeholder="Teléfono"
+          required
+        />
+        <textarea
+          v-model="formTienda.comentarios"
+          placeholder="Comentarios"
+        ></textarea>
+      </form>
+    </section>
+
+    <!-- Selección de Productos -->
+    <section class="productos">
+      <h2>Productos</h2>
+      <!-- Pizzas -->
+      <div class="categoria">
+        <h3>Pizzas</h3>
+        <div class="producto">
+          <h4>Pizzas Clásicas y Gourmet</h4>
+          <label for="pizza-tamano">Tamaño:</label>
+          <select v-model="pizza.tamano" id="pizza-tamano">
+            <option disabled value="">Selecciona tamaño</option>
+            <option value="porcion">Porción ($9.000)</option>
+            <option value="personal">Personal</option>
+            <option value="mediana">Mediana</option>
+            <option value="familiar">Familiar</option>
+          </select>
+
+          <!-- Selección de sabores -->
+          <!-- Porción: 1 sabor -->
+          <div v-if="pizza.tamano === 'porcion'">
+            <label for="pizza-sabor">Sabor:</label>
+            <select v-model="pizza.sabores[0]" id="pizza-sabor">
+              <option disabled value="">Selecciona sabor</option>
+              <!-- Un solo sabor: puede ser clásico o gourmet -->
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+          </div>
+
+          <!-- Personal: 1 sabor (precio varía si es clásico o gourmet) -->
+          <div v-if="pizza.tamano === 'personal'">
+            <label for="pizza-sabor-personal">Sabor:</label>
+            <select v-model="pizza.sabores[0]" id="pizza-sabor-personal">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+          </div>
+
+          <!-- Mediana: 2 sabores -->
+          <div v-if="pizza.tamano === 'mediana'">
+            <label for="pizza-sabor1">Sabor 1:</label>
+            <select v-model="pizza.sabores[0]" id="pizza-sabor1">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name + '1'"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+
+            <label for="pizza-sabor2">Sabor 2:</label>
+            <select v-model="pizza.sabores[1]" id="pizza-sabor2">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name + '2'"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+          </div>
+
+          <!-- Familiar: 3 sabores -->
+          <div v-if="pizza.tamano === 'familiar'">
+            <label for="pizza-sabor1-f">Sabor 1:</label>
+            <select v-model="pizza.sabores[0]" id="pizza-sabor1-f">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name + 'f1'"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+
+            <label for="pizza-sabor2-f">Sabor 2:</label>
+            <select v-model="pizza.sabores[1]" id="pizza-sabor2-f">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name + 'f2'"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+
+            <label for="pizza-sabor3-f">Sabor 3:</label>
+            <select v-model="pizza.sabores[2]" id="pizza-sabor3-f">
+              <option disabled value="">Selecciona sabor</option>
+              <option
+                v-for="flavor in allFlavors"
+                :value="flavor"
+                :key="flavor.name + 'f3'"
+              >
+                {{ flavor.name }} ({{ flavor.ingredients }})
+              </option>
+            </select>
+          </div>
+
+          <button @click="agregarProducto('Pizza', calcularPrecioPizza())">
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Hamburguesas -->
+      <div class="categoria">
+        <h3>Hamburguesas ($15.000)</h3>
+        <div
+          class="producto"
+          v-for="hamburguesa in hamburguesas"
+          :key="hamburguesa.name"
+        >
+          <h4>{{ hamburguesa.name }} - $15.000</h4>
+          <p>{{ hamburguesa.ingredients }}</p>
+          <button @click="agregarProducto(hamburguesa.name, 15000)">
+            Agregar
+          </button>
+        </div>
+      </div>
+
+      <!-- Pizza Dog -->
+      <div class="categoria">
+        <h3>Pizza Dog ($15.000)</h3>
+        <div class="producto" v-for="pDog in pizzaDogs" :key="pDog.name">
+          <h4>{{ pDog.name }} - $15.000</h4>
+          <p>{{ pDog.ingredients }}</p>
+          <button @click="agregarProducto(pDog.name, 15000)">Agregar</button>
+        </div>
+      </div>
+
+      <!-- Bebidas -->
+      <div class="categoria">
+        <h3>Bebidas</h3>
+        <div class="producto" v-for="bebida in bebidas" :key="bebida.name">
+          <h4>
+            {{ bebida.name }} - ${{ numberFormat(bebida.price) }}
+          </h4>
+          <button @click="agregarProducto(bebida.name, bebida.price)">
+            Agregar
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Carrito flotante -->
+    <div class="carrito-flotante">
+      <h3>Tu Pedido</h3>
+      <div v-for="(item, index) in carrito" :key="index">
+        <span>{{ item.nombre }} - ${{ numberFormat(item.precio) }}</span>
+        <button @click="eliminarProducto(index)">Eliminar</button>
+      </div>
+      <p>Total: ${{ numberFormat(total) }}</p>
+      <button @click="enviarPedido()">Enviar Pedido por WhatsApp</button>
+      <button @click="continuarPedido()">Agregar Más</button>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
 
