@@ -1,22 +1,8 @@
 <!-- common/header-index.html -->
 <header>
-  <!-- Barra superior fija con logo y botones de acción -->
-  <div class="top-bar bg-danger text-white py-2">
-    <div class="container d-flex justify-content-between align-items-center">
-      <a href="index.html" class="navbar-brand text-white">Pizza Quira</a>
-      <div class="d-flex">
-        <button class="btn btn-warning me-2" onclick="window.location.href='domicilio.html'">
-          Entrega a Domicilio
-        </button>
-        <button class="btn btn-warning" onclick="window.location.href='recoger.html'">
-          Recoger en Tienda
-        </button>
-      </div>
-    </div>
-  </div>
-  <!-- Barra de navegación (menú) -->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-danger">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
     <div class="container">
+      <a class="navbar-brand" href="index.html">Pizza Quira</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIndex" 
               aria-controls="navbarIndex" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -28,6 +14,15 @@
           <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
           <li class="nav-item"><a class="nav-link" href="terminos.html">Términos</a></li>
         </ul>
+        <!-- Botones integrados en la barra -->
+        <div class="d-flex">
+          <button class="btn btn-warning me-2" onclick="window.location.href='domicilio.html'">
+            Entrega a Domicilio
+          </button>
+          <button class="btn btn-warning" onclick="window.location.href='recoger.html'">
+            Recoger en Tienda
+          </button>
+        </div>
       </div>
     </div>
   </nav>
