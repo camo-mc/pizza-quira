@@ -13,10 +13,26 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1>Términos y Condiciones</h1>
-      <nav>
+  <header class="header">
+    <div class="container header-content">
+      <!-- Logo -->
+      <div class="logo-container">
+        <a href="index.html">
+          <img
+            src="assets/images/quira.png"
+            alt="Pizza Quira Logo"
+            class="logo"
+          />
+        </a>
+      </div>
+      <!-- Botón hamburguesa -->
+      <button class="hamburger" id="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <!-- Menú de navegación -->
+      <nav class="nav-menu" id="nav-menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="carta.html">Carta</a></li>
@@ -27,7 +43,7 @@
     </div>
   </header>
 
-  <main class="contenido">
+  <main class="contenido container">
     <section>
       <h2>Políticas de Uso</h2>
       <p>
@@ -53,9 +69,20 @@
     </section>
   </main>
 
-  <footer>
-    <p>Como el amor por la pizza nos une y nos alegra a cada bocado</p>
+  <footer class="container">
+    <p>El amor por la pizza nos une y nos alegra a cada bocado</p>
     <p>Diseñada: 2025 www.checkinpos.co - Todos los derechos reservados</p>
   </footer>
+
+  <script>
+    // Menú hamburguesa
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('nav-open');
+      hamburgerBtn.classList.toggle('is-active');
+    });
+  </script>
 </body>
 </html>
