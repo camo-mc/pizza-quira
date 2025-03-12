@@ -56,7 +56,7 @@
     <!-- Sección de Carta para agregar productos -->
     <div id="cartaSection"></div>
     
-    <!-- Botón "Ver Pedido" que valida el formulario y redirige a "carrito.html" -->
+    <!-- Botón "Ver Pedido" que valida el formulario, guarda los datos y redirige a "carrito.html" -->
     <div class="d-flex justify-content-center my-4">
       <button class="btn btn-primary fw-bold" onclick="validateAndGoToCart()">Ver Pedido</button>
     </div>
@@ -85,10 +85,23 @@
       })
       .catch(error => console.error('Error al cargar la carta:', error));
     
-    // Función para validar el formulario y redirigir a "carrito.html"
+    // Función para validar el formulario, almacenar los datos y redirigir a "carrito.html"
     function validateAndGoToCart() {
       const form = document.getElementById('domicilioForm');
       if (form.checkValidity()) {
+        // Recopilar datos del formulario
+        const formData = {
+          nombre: document.getElementById('nombre').value,
+          email: document.getElementById('email').value,
+          telefono: document.getElementById('telefono').value,
+          direccion: document.getElementById('direccion').value,
+          barrio: document.getElementById('barrio').value,
+          paymentMethod: document.getElementById('paymentMethod').value,
+          nota: document.getElementById('nota').value
+        };
+        // Guardar en localStorage para que la página carrito pueda acceder a estos datos
+        localStorage.setItem('domicilioData', JSON.stringify(formData));
+        // Redirigir a la página del carrito
         window.location.href = 'carrito.html';
       } else {
         form.reportValidity();
