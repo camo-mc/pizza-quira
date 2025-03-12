@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Entrega a Domicilio - Pizza Quira</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <!-- Se incluye el archivo de estilos principal -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -52,22 +53,28 @@
       </div>
     </form>
     
-    <!-- (Opcional) Sección de Carta para agregar productos -->
+    <!-- Sección de Carta para agregar productos -->
     <div id="cartaSection"></div>
     
-    <!-- Botón "Ver Pedido" que redirige al carrito -->
+    <!-- Botón "Ver Pedido" que valida el formulario y redirige a "carrito.html" -->
     <div class="d-flex justify-content-center my-4">
-      <button class="btn btn-primary fw-bold" onclick="window.location.href='carrito.html'">Ver Pedido</button>
+      <button class="btn btn-primary fw-bold" onclick="validateAndGoToCart()">Ver Pedido</button>
     </div>
   </main>
+  
+  <!-- Botón flotante del carrito con contador -->
+  <div id="floatingCartBtn" onclick="validateAndGoToCart()">
+    <span id="floatingCartCount">0</span> 🛒 Carrito
+  </div>
   
   <!-- Footer (se carga dinámicamente) -->
   <div id="footerContainer"></div>
   
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="js/script.js"></script>
   <script>
-    // Cargar carta.html para la sección de productos (si deseas mostrarla)
+    // Cargar la sección de carta
     fetch('carta.html')
       .then(response => response.text())
       .then(data => {
@@ -77,6 +84,23 @@
         }
       })
       .catch(error => console.error('Error al cargar la carta:', error));
+    
+    // Función para validar el formulario y redirigir a "carrito.html"
+    function validateAndGoToCart() {
+      const form = document.getElementById('domicilioForm');
+      if (form.checkValidity()) {
+        window.location.href = 'carrito.html';
+      } else {
+        form.reportValidity();
+      }
+    }
+    
+    // Actualizar el contador del carrito (se asume que updateCartCount() está definida en script.js)
+    document.addEventListener('DOMContentLoaded', function() {
+      if (typeof updateCartCount === "function") {
+        updateCartCount();
+      }
+    });
   </script>
 </body>
 </html>
