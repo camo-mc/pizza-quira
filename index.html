@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Contenedor para el header exclusivo para Index, oculto inicialmente -->
-  <div id="headerContainer" style="min-height:150px; display:none;"></div>
+  <!-- Contenedor para el header exclusivo para Index -->
+  <div id="headerContainer"></div>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       fetch('common/header-index.html')
@@ -23,10 +23,7 @@
           return response.text();
         })
         .then(data => {
-          const headerContainer = document.getElementById('headerContainer');
-          headerContainer.innerHTML = data;
-          headerContainer.style.display = 'block';
-          console.log("Header-index cargado correctamente.");
+          document.getElementById('headerContainer').innerHTML = data;
         })
         .catch(error => console.error('Error al cargar el header-index:', error));
     });
@@ -44,7 +41,7 @@
     </marquee>
   </div>
   
-  <!-- Contenido Principal (Promociones Especiales) -->
+  <!-- Contenido Principal: Promociones Especiales -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
@@ -69,7 +66,7 @@
     <img src="img/whatsapp-icon.png" alt="WhatsApp">
   </a>
   
-  <!-- Footer cargado dinámicamente -->
+  <!-- Footer -->
   <div id="footerContainer"></div>
   <script>
     fetch('common/footer.html')
