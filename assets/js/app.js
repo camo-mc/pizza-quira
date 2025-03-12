@@ -288,4 +288,30 @@ new Vue({
       // Construir mensaje
       let mensaje = 'Hola, quisiera realizar el siguiente pedido:\n';
       this.carrito.forEach((item) => {
-    
+        mensaje += `- ${item.nombre}: $${this.numberFormat(item.precio)}\n`;
+      });
+      mensaje += `Total: $${this.numberFormat(this.total)}\n\n`;
+
+      if (this.deliveryMethod === 'domicilio') {
+        const { nombre, telefono, direccion, barrio, pago, comentarios } = this.formDomicilio;
+        mensaje += 'Datos de entrega a domicilio:\n';
+        mensaje += `Nombre: ${nombre}\n`;
+        mensaje += `Teléfono: ${telefono}\n`;
+        mensaje += `Dirección: ${direccion}\n`;
+        mensaje += `Barrio: ${barrio}\n`;
+        mensaje += `Medio de Pago: ${pago}\n`;
+        mensaje += `Comentarios: ${comentarios}\n`;
+      } else {
+        const { nombre, telefono, comentarios } = this.formTienda;
+        mensaje += 'Datos para recoger en tienda:\n';
+        mensaje += `Nombre: ${nombre}\n`;
+        mensaje += `Teléfono: ${telefono}\n`;
+        mensaje += `Comentarios: ${comentarios}\n`;
+      }
+
+      // Abrir WhatsApp
+      const url = `https://wa.me/573018348558?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, '_blank');
+    }
+  }
+});
