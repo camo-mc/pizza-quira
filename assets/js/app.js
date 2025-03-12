@@ -1,4 +1,3 @@
-
 new Vue({
   el: '#app',
   data: {
@@ -16,10 +15,8 @@ new Vue({
       telefono: '',
       comentarios: ''
     },
-    // Datos para la pizza
     pizza: {
       tamano: '',
-      // Para cada tamaño, iremos guardando los sabores en el array 'sabores'
       sabores: []
     },
     // Pizzas Clásicas
@@ -88,7 +85,7 @@ new Vue({
         type: 'gourmet'
       }
     ],
-    // Hamburguesas (todas a $15.000)
+    // Hamburguesas
     hamburguesas: [
       {
         name: 'Minera',
@@ -111,7 +108,7 @@ new Vue({
         ingredients: 'carne, queso, lechuga, tomate, cebolla caramelizada'
       }
     ],
-    // Pizza Dog (todas a $15.000)
+    // Pizza Dog
     pizzaDogs: [
       {
         name: 'Mexicano',
@@ -137,126 +134,123 @@ new Vue({
       { name: 'Gaseosa 1.5 L', price: 6000 },
       { name: 'Té o Jugo del Valle', price: 4000 }
     ],
-    // Carrito
     carrito: []
   },
   computed: {
-    // Unir sabores clásicos y gourmet en un solo array para mostrarlos
     allFlavors() {
       return this.flavorsClassic.concat(this.flavorsGourmet);
     },
-    // Calcular total del carrito
     total() {
       return this.carrito.reduce((sum, item) => sum + item.precio, 0);
     }
   },
   methods: {
-    // Formatear números con punto de miles en pesos colombianos
+    // Formatear número con punto de miles
     numberFormat(value) {
       return value.toLocaleString('es-CO');
     },
-
     // Agregar producto al carrito
     agregarProducto(nombre, precio) {
-      // Evitar agregar si el precio es 0 (por ejemplo, si no seleccionó sabores)
       if (precio > 0) {
         this.carrito.push({ nombre, precio });
       }
     },
-    // Eliminar producto del carrito
+    // Eliminar producto
     eliminarProducto(index) {
       this.carrito.splice(index, 1);
     },
-
-    // Calcular el precio de la pizza según tamaño y tipo de sabor
+    // Calcular precio pizza según tamaño y sabores
     calcularPrecioPizza() {
       let precio = 0;
       const tamano = this.pizza.tamano;
-      const sabores = this.pizza.sabores;
+      const s = this.pizza.sabores; // array de sabores
 
-      // Asegurarnos de tener limpio el array de sabores según el tamaño
-      // (Por ejemplo, si cambia de familiar a porción, sobrarían indices)
+      // Asegurarnos de que s[0], s[1], s[2] existan cuando corresponda
       if (tamano === 'porcion') {
-        // Porción: $9.000 (tanto clásica como gourmet)
+        // Porción: $9.000
         precio = 9000;
       } else if (tamano === 'personal') {
-        // Pizza Personal:
-        // Clásica = $15.000, Gourmet = $17.000
-        // Asumimos 1 sabor
-        if (sabores[0]) {
-          if (sabores[0].type === 'clasica') {
-            precio = 15000;
-          } else {
-            precio = 17000;
-          }
+        // Personal con 2 sabores:
+        // Si ambos son clásicos => $15.000
+        // Si alguno es gourmet => $17.000
+        if (s[0] && s[1]) {
+          const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
+          precio = isGourmet ? 17000 : 15000;
         }
       } else if (tamano === 'mediana') {
-        // Mediana:
-        // Si ambos sabores son clásicos = $43.000
-        // Si al menos uno es gourmet = $46.000
-        if (sabores[0] && sabores[1]) {
-          if (
-            sabores[0].type === 'clasica' &&
-            sabores[1].type === 'clasica'
-          ) {
+        // Mediana: 2 sabores
+        // Ambos clásicos => $43.000
+        // Al menos uno gourmet => $46.000
+        if (s[0] && s[1]) {
+          if (s[0].type === 'clasica' && s[1].type === 'clasica') {
             precio = 43000;
           } else {
             precio = 46000;
           }
         }
       } else if (tamano === 'familiar') {
-        // Familiar:
-        // Si todos son clásicos = $63.000
-        // Si alguno es gourmet = $67.000
-        if (sabores[0] && sabores[1] && sabores[2]) {
+        // Familiar: 3 sabores
+        // Todos clásicos => $63.000
+        // Alguno gourmet => $67.000
+        if (s[0] && s[1] && s[2]) {
           const isGourmet =
-            sabores[0].type === 'gourmet' ||
-            sabores[1].type === 'gourmet' ||
-            sabores[2].type === 'gourmet';
-          if (isGourmet) {
-            precio = 67000;
-          } else {
-            precio = 63000;
-          }
+            s[0].type === 'gourmet' ||
+            s[1].type === 'gourmet' ||
+            s[2].type === 'gourmet';
+          precio = isGourmet ? 67000 : 63000;
         }
       }
       return precio;
     },
-
-    // Enviar pedido por WhatsApp
+    // Enviar pedido a WhatsApp con validaciones
     enviarPedido() {
+      // Validar datos
+      if (this.deliveryMethod === 'domicilio') {
+        const { nombre, telefono, direccion, barrio, pago } = this.formDomicilio;
+        if (!nombre || !telefono || !direccion || !barrio || !pago) {
+          alert('Por favor llena todos los campos de domicilio antes de enviar el pedido.');
+          return;
+        }
+      } else {
+        const { nombre, telefono } = this.formTienda;
+        if (!nombre || !telefono) {
+          alert('Por favor llena todos los campos de recoger en tienda antes de enviar el pedido.');
+          return;
+        }
+      }
+
+      if (this.carrito.length === 0) {
+        alert('No has agregado ningún producto al carrito.');
+        return;
+      }
+
+      // Construir mensaje
       let mensaje = 'Hola, quisiera realizar el siguiente pedido:\n';
       this.carrito.forEach((item) => {
         mensaje += `- ${item.nombre}: $${this.numberFormat(item.precio)}\n`;
       });
       mensaje += `Total: $${this.numberFormat(this.total)}\n\n`;
 
-      // Datos del formulario
       if (this.deliveryMethod === 'domicilio') {
+        const { nombre, telefono, direccion, barrio, pago, comentarios } = this.formDomicilio;
         mensaje += 'Datos de entrega a domicilio:\n';
-        mensaje += `Nombre: ${this.formDomicilio.nombre}\n`;
-        mensaje += `Teléfono: ${this.formDomicilio.telefono}\n`;
-        mensaje += `Dirección: ${this.formDomicilio.direccion}\n`;
-        mensaje += `Barrio: ${this.formDomicilio.barrio}\n`;
-        mensaje += `Medio de Pago: ${this.formDomicilio.pago}\n`;
-        mensaje += `Comentarios: ${this.formDomicilio.comentarios}\n`;
+        mensaje += `Nombre: ${nombre}\n`;
+        mensaje += `Teléfono: ${telefono}\n`;
+        mensaje += `Dirección: ${direccion}\n`;
+        mensaje += `Barrio: ${barrio}\n`;
+        mensaje += `Medio de Pago: ${pago}\n`;
+        mensaje += `Comentarios: ${comentarios}\n`;
       } else {
+        const { nombre, telefono, comentarios } = this.formTienda;
         mensaje += 'Datos para recoger en tienda:\n';
-        mensaje += `Nombre: ${this.formTienda.nombre}\n`;
-        mensaje += `Teléfono: ${this.formTienda.telefono}\n`;
-        mensaje += `Comentarios: ${this.formTienda.comentarios}\n`;
+        mensaje += `Nombre: ${nombre}\n`;
+        mensaje += `Teléfono: ${telefono}\n`;
+        mensaje += `Comentarios: ${comentarios}\n`;
       }
 
+      // Abrir WhatsApp
       const url = `https://wa.me/573018348558?text=${encodeURIComponent(mensaje)}`;
       window.open(url, '_blank');
-    },
-
-    // Regresar a la sección de productos
-    continuarPedido() {
-      window.scrollTo({
-        top: document.querySelector('.productos').offsetTop,
-        behavior: 'smooth'
-      });
     }
   }
 });
