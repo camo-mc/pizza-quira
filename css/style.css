@@ -88,6 +88,13 @@ body {
   white-space: nowrap;
 }
 
+#floatingCartCount {
+  background: #fff;
+  color: #dc3545;
+  border-radius: 50%;
+  padding: 5px 8px;
+  font-weight: bold;
+}
 
 /* Botones de acción parpadeantes */
 .btn-action {
