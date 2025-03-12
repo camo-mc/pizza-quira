@@ -11,9 +11,10 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <!-- Header exclusivo para Index -->
-  <div id="headerContainer"></div>
-  <script>
+<!-- Header exclusivo para Index -->
+<div id="headerContainer" style="min-height:150px; visibility:hidden;"></div>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
     fetch('common/header-index.html')
       .then(response => {
         if (!response.ok) {
@@ -22,16 +23,14 @@
         return response.text();
       })
       .then(data => {
-        document.getElementById('headerContainer').innerHTML = data;
+        const headerContainer = document.getElementById('headerContainer');
+        headerContainer.innerHTML = data;
+        headerContainer.style.visibility = 'visible';
       })
       .catch(error => console.error('Error al cargar el header-index:', error));
-  </script>
-  
-  <!-- Banner principal -->
-  <div id="banner">
-    <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" class="img-fluid w-100">
-  </div>
-  
+  });
+</script>
+
   <!-- Marquee -->
   <div class="marquee-container bg-light py-2">
     <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
