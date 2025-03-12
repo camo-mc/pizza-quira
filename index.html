@@ -1,99 +1,121 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="description" content="Pizza Quira - La mejor pizza en Zipaquira. Servicio a domicilio y para llevar.">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pizza Quira - Inicio</title>
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-  <!-- Tu CSS personalizado -->
-  <link rel="stylesheet" href="css/style.css">
-  <style>
-    /* Evitar que el contenido quede oculto por el navbar fijo */
-    body {
-      padding-top: 80px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Pizzería solo para llevar y a domicilio en Zipaquirá. Realiza tu pedido de pizzas, hamburguesas, pizza dog y bebidas."
+  />
+  <title>Pizza Quira Delivery</title>
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <!-- Header integrado -->
+  <!-- Header -->
   <header>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-danger fixed-top">
-      <div class="container">
-        <!-- Sección izquierda: Marca y botones siempre visibles -->
-        <div class="d-flex align-items-center">
-          <a class="navbar-brand" href="index.html">Pizza Quira</a>
-          <div class="d-flex ms-3">
-            <button class="btn btn-warning me-2" onclick="window.location.href='domicilio.html'">
-              Entrega a Domicilio
-            </button>
-            <button class="btn btn-warning" onclick="window.location.href='recoger.html'">
-              Recoger en Tienda
-            </button>
-          </div>
-        </div>
-        <!-- Botón de hamburguesa para el menú colapsable -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarIndex" aria-controls="navbarIndex" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <!-- Menú colapsable (se muestra a la derecha en escritorio) -->
-        <div class="collapse navbar-collapse justify-content-end" id="navbarIndex">
-          <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-            <li class="nav-item"><a class="nav-link" href="carta.html">Carta</a></li>
-            <li class="nav-item"><a class="nav-link" href="carrito.html">Carrito</a></li>
-            <li class="nav-item"><a class="nav-link" href="terminos.html">Términos</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+    <div class="container">
+      <h1>Pizza Quira</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Inicio</a></li>
+          <li><a href="terminos.html">Términos y Condiciones</a></li>
+          <li><a href="carta.html">Carta</a></li>
+          <li><a href="contactanos.html">Contáctanos</a></li>
+        </ul>
+      </nav>
+    </div>
   </header>
 
-<div style="height: 20px;"></div>
-  
-  <!-- Banner principal -->
-  <div id="banner">
-    <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" class="img-fluid w-100">
+  <!-- Contenedor superior para CTA "Hacer Pedido" -->
+  <div class="top-cta container">
+    <a class="btn-pedido" href="hacer-pedido.html">Hacer Pedido</a>
   </div>
 
-  <!-- Marquee -->
-  <div class="marquee-container bg-light py-2">
-    <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
-      ¡La pizza une el mundo!
-    </marquee>
-  </div>
+  <!-- Sección Hero -->
+  <section class="hero">
+    <img src="assets/images/banner.jpg" alt="Banner Pizza Quira" />
+  </section>
 
-  <!-- Contenido Principal: Promociones Especiales -->
-  <main class="container my-4">
-    <h2 class="text-danger mb-4">Promociones Especiales</h2>
-    <div class="row g-4">
-      <div class="col-12 col-md-6 text-center">
-        <img src="img/promo1.jpg" alt="Promo 1" class="img-fluid mb-2" style="cursor:pointer" onclick="addToCart('Promo 1 Especial', 25000)">
-        <p class="fw-bold text-danger">Promo 1 Especial - $25,000</p>
-      </div>
-      <div class="col-12 col-md-6 text-center">
-        <img src="img/promo2.jpg" alt="Promo 2" class="img-fluid mb-2" style="cursor:pointer" onclick="addToCart('Promo 2 Familiar', 32000)">
-        <p class="fw-bold text-danger">Promo 2 Familiar - $32,000</p>
-      </div>
+  <!-- Marquee (mensaje desplazándose) -->
+  <section class="marquee">
+    <div class="marquee-inner">
+      <p>La pizza une el mundo</p>
     </div>
-  </main>
+  </section>
 
+  <!-- Combos -->
+  <section class="combos container">
+    <h2>Combos Especiales</h2>
+    <div class="combo-imagenes">
+      <a href="#">
+        <img src="assets/images/combo1.jpg" alt="Combo 1" />
+      </a>
+      <a href="#">
+        <img src="assets/images/combo2.jpg" alt="Combo 2" />
+      </a>
+    </div>
+  </section>
 
-  <!-- Botón flotante de WhatsApp -->
-  <a href="https://wa.me/573018348558?text=Hola,%20quiero%20hacer%20un%20pedido!" class="whatsapp-btn" target="_blank" title="Chatea con nosotros por WhatsApp">
-    <img src="img/whatsapp-icon.png" alt="WhatsApp">
-  </a>
+  <!-- Sobre Nosotros -->
+  <section class="sobre-nosotros container">
+    <div class="sobre-header">
+      <h2>Sobre Nosotros</h2>
+      <button class="btn-seguir" onclick="window.open('https://www.instagram.com/pizzaquira_', '_blank')">
+        <img
+          src="assets/images/instagram-icon.png"
+          alt="Instagram"
+          class="icon-instagram"
+        />
+        Seguir
+      </button>
+    </div>
+    <p>
+      Estamos ubicados en Zipaquirá, Cundinamarca, Colombia.<br />
+      Contáctanos:
+      <a href="mailto:pizzaquiradelivery@gmail.com">pizzaquiradelivery@gmail.com</a
+      ><br />
+      Instagram:
+      <a href="https://www.instagram.com/pizzaquira_" target="_blank">@pizzaquira_</a>
+    </p>
+    <div class="mapa">
+      <!-- Inserta aquí tu API KEY de Google Maps si deseas una ubicación exacta -->
+      <iframe
+        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Zipaquir%C3%A1,Cundinamarca,Colombia"
+        width="100%"
+        height="300"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+      ></iframe>
+    </div>
+    <!-- Enlace para obtener la ruta en Google Maps -->
+    <a
+      class="btn-mapa"
+      href="https://www.google.com/maps/dir/?api=1&destination=Zipaquir%C3%A1,+Cundinamarca,+Colombia"
+      target="_blank"
+      >Obtener Ruta</a
+    >
+  </section>
 
   <!-- Footer -->
-  <footer class="bg-dark text-white text-center p-3 mt-4">
-    <p class="m-0">&copy; 2025 www.checkinpos.co - Todos los derechos reservados.</p>
-    <p class="m-0">“El amor a la pizza nos une y nos alegra el corazón con cada bocado.”</p>
+  <footer class="container">
+    <p>Como el amor por la pizza nos une y nos alegra a cada bocado</p>
+    <p>Diseñada: 2025 www.checkinpos.co - Todos los derechos reservados</p>
   </footer>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-  <!-- Nuestro script principal -->
-  <script src="js/script.js"></script>
+  <!-- Botón flotante de WhatsApp -->
+  <a
+    href="https://wa.me/573018348558"
+    class="whatsapp-float"
+    target="_blank"
+  >
+    <img src="assets/images/whatsapp-icon.png" alt="WhatsApp" />
+  </a>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
