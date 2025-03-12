@@ -5,32 +5,37 @@
   <meta name="description" content="Pizza Quira - La mejor pizza en Zipaquira. Servicio a domicilio y para llevar.">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pizza Quira - Inicio</title>
-  <!-- Cargar Bootstrap primero -->
+  <!-- Bootstrap primero -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <!-- Tu CSS personalizado -->
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<!-- Header exclusivo para Index -->
-<div id="headerContainer" style="min-height:150px; visibility:hidden;"></div>
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    fetch('common/header-index.html')
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Error en la carga del header-index: ' + response.status);
-        }
-        return response.text();
-      })
-      .then(data => {
-        const headerContainer = document.getElementById('headerContainer');
-        headerContainer.innerHTML = data;
-        headerContainer.style.visibility = 'visible';
-      })
-      .catch(error => console.error('Error al cargar el header-index:', error));
-  });
-</script>
-
+  <!-- Contenedor para el header exclusivo para index, oculto inicialmente -->
+  <div id="headerContainer" style="min-height:150px; visibility:hidden;"></div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('common/header-index.html')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Error en la carga del header-index: ' + response.status);
+          }
+          return response.text();
+        })
+        .then(data => {
+          const headerContainer = document.getElementById('headerContainer');
+          headerContainer.innerHTML = data;
+          headerContainer.style.visibility = 'visible';
+        })
+        .catch(error => console.error('Error al cargar el header-index:', error));
+    });
+  </script>
+  
+  <!-- Banner principal -->
+  <div id="banner">
+    <img src="img/Pizza-Quira.jpg" alt="Banner Pizza Quira" class="img-fluid w-100">
+  </div>
+  
   <!-- Marquee -->
   <div class="marquee-container bg-light py-2">
     <marquee behavior="scroll" direction="left" scrollamount="6" class="text-danger fw-bold">
@@ -38,7 +43,7 @@
     </marquee>
   </div>
   
-  <!-- Contenido Principal (Promociones Especiales) -->
+  <!-- Contenido Principal: Promociones Especiales -->
   <main class="container my-4">
     <h2 class="text-danger mb-4">Promociones Especiales</h2>
     <div class="row g-4">
@@ -63,7 +68,7 @@
     <img src="img/whatsapp-icon.png" alt="WhatsApp">
   </a>
   
-  <!-- Footer -->
+  <!-- Footer cargado dinámicamente -->
   <div id="footerContainer"></div>
   <script>
     fetch('common/footer.html')
