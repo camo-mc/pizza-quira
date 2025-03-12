@@ -1,5 +1,3 @@
-// js/script.js
-
 // ----------------------
 // COMPONENTES COMUNES
 // ----------------------
@@ -234,6 +232,35 @@ function addPizzaToCart() {
 }
 
 // ----------------------
+// VALIDACIÓN DEL FORMULARIO DE DOMICILIO Y REDIRECCIÓN
+// ----------------------
+function validateAndGoToCart() {
+  const form = document.getElementById('domicilioForm');
+  if (form && form.checkValidity()) {
+    // Recopilar los datos del formulario
+    const formData = {
+      nombre: document.getElementById('nombre').value,
+      email: document.getElementById('email').value,
+      telefono: document.getElementById('telefono').value,
+      direccion: document.getElementById('direccion').value,
+      barrio: document.getElementById('barrio').value,
+      paymentMethod: document.getElementById('paymentMethod').value,
+      nota: document.getElementById('nota').value
+    };
+    // Guardar en localStorage para usar en carrito.html
+    localStorage.setItem('domicilioData', JSON.stringify(formData));
+    // Redirigir a la página del carrito
+    window.location.href = 'carrito.html';
+  } else {
+    if(form) {
+      form.reportValidity();
+    } else {
+      window.location.href = 'carrito.html';
+    }
+  }
+}
+
+// ----------------------
 // EVENTOS AL CARGAR LA PÁGINA
 // ----------------------
 document.addEventListener('DOMContentLoaded', function() {
@@ -243,8 +270,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const floatingCartBtn = document.getElementById('floatingCartBtn');
   if (floatingCartBtn) {
     floatingCartBtn.addEventListener('click', function() {
-      window.location.href = "carrito.html";
+      // En caso de que exista un formulario (por ejemplo, en la página de domicilio)
+      // se invoca validateAndGoToCart; de lo contrario, se redirige directamente.
+      validateAndGoToCart();
     });
   }
 });
-
