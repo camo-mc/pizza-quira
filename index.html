@@ -16,25 +16,37 @@
   <link rel="stylesheet" href="assets/css/style.css" />
 </head>
 <body>
-  <!-- Header -->
-  <header>
-    <div class="container">
-      <h1>Pizza Quira</h1>
-      <nav>
+  <!-- Header con menú hamburguesa -->
+  <header class="header">
+    <div class="container header-content">
+      <!-- Logo -->
+      <div class="logo-container">
+        <a href="index.html">
+          <img
+            src="assets/images/quira.png"
+            alt="Pizza Quira Logo"
+            class="logo"
+          />
+        </a>
+      </div>
+      <!-- Botón hamburguesa -->
+      <button class="hamburger" id="hamburger-btn">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <!-- Menú de navegación -->
+      <nav class="nav-menu" id="nav-menu">
         <ul>
           <li><a href="index.html">Inicio</a></li>
           <li><a href="terminos.html">Términos y Condiciones</a></li>
           <li><a href="carta.html">Carta</a></li>
           <li><a href="contactanos.html">Contáctanos</a></li>
+          <li><a class="btn-pedido-nav" href="hacer-pedido.html">Hacer Pedido</a></li>
         </ul>
       </nav>
     </div>
   </header>
-
-  <!-- Contenedor superior para CTA "Hacer Pedido" -->
-  <div class="top-cta container">
-    <a class="btn-pedido" href="hacer-pedido.html">Hacer Pedido</a>
-  </div>
 
   <!-- Sección Hero -->
   <section class="hero">
@@ -65,7 +77,10 @@
   <section class="sobre-nosotros container">
     <div class="sobre-header">
       <h2>Sobre Nosotros</h2>
-      <button class="btn-seguir" onclick="window.open('https://www.instagram.com/pizzaquira_', '_blank')">
+      <button
+        class="btn-seguir"
+        onclick="window.open('https://www.instagram.com/pizzaquira_', '_blank')"
+      >
         <img
           src="assets/images/instagram-icon.png"
           alt="Instagram"
@@ -76,6 +91,7 @@
     </div>
     <p>
       Estamos ubicados en Zipaquirá, Cundinamarca, Colombia.<br />
+      <strong>Dirección:</strong> Carrera 11 n 10 -71<br />
       Contáctanos:
       <a href="mailto:pizzaquiradelivery@gmail.com">pizzaquiradelivery@gmail.com</a
       ><br />
@@ -83,7 +99,7 @@
       <a href="https://www.instagram.com/pizzaquira_" target="_blank">@pizzaquira_</a>
     </p>
     <div class="mapa">
-      <!-- Inserta aquí tu API KEY de Google Maps si deseas una ubicación exacta -->
+      <!-- Inserta aquí tu API KEY de Google Maps si deseas la ubicación exacta -->
       <iframe
         src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Zipaquir%C3%A1,Cundinamarca,Colombia"
         width="100%"
@@ -104,7 +120,7 @@
 
   <!-- Footer -->
   <footer class="container">
-    <p> el amor por la pizza nos une y nos alegra a cada bocado</p>
+    <p>El amor por la pizza nos une y nos alegra a cada bocado</p>
     <p>Diseñada: 2025 www.checkinpos.co - Todos los derechos reservados</p>
   </footer>
 
@@ -116,6 +132,18 @@
   >
     <img src="assets/images/whatsapp-icon.png" alt="WhatsApp" />
   </a>
+
+  <!-- Script principal -->
   <script src="assets/js/app.js"></script>
+  <script>
+    // Lógica del menú hamburguesa (versión JavaScript sencilla)
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const navMenu = document.getElementById('nav-menu');
+
+    hamburgerBtn.addEventListener('click', () => {
+      navMenu.classList.toggle('nav-open');
+      hamburgerBtn.classList.toggle('is-active');
+    });
+  </script>
 </body>
 </html>
