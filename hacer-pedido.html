@@ -286,13 +286,13 @@
 
       <!-- Hamburguesas -->
       <div class="categoria">
-        <h3>Hamburguesas ($15.000)</h3>
+        <h3>Hamburguesas ($20.000)</h3>
         <div
           class="producto"
           v-for="(hamburguesa, idx) in hamburguesas"
           :key="hamburguesa.name"
         >
-          <h4>{{ hamburguesa.name }} - $15.000</h4>
+          <h4>{{ hamburguesa.name }} - $20.000</h4>
           <!-- Botones Agregar / Ver ingredientes -->
           <div class="producto-buttons">
             <button @click="agregarProducto(hamburguesa.name, 15000)">
