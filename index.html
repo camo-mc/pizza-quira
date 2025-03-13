@@ -14,6 +14,32 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="assets/css/style.css" />
+  <style>
+    /* Estilo para el mapa interactivo */
+    #map {
+      width: 100%;
+      height: 300px;
+    }
+  </style>
+  <script>
+    // Función que inicializa el mapa
+    function initMap() {
+      // Coordenadas para Zipaquirá (ajusta si es necesario)
+      var location = {lat: 4.927, lng: -73.962};
+
+      // Crea el mapa centrado en la ubicación
+      var map = new google.maps.Map(document.getElementById("map"), {
+        zoom: 15,
+        center: location
+      });
+
+      // Agrega un marcador en la ubicación
+      var marker = new google.maps.Marker({
+        position: location,
+        map: map
+      });
+    }
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -54,21 +80,16 @@
     <img src="assets/images/banner.jpg" alt="Banner Pizza Quira" />
   </section>
 
-  <!-- Marquee (mensaje desplazándose) -->
+  <!-- Marquee -->
   <section class="marquee">
     <div class="marquee-inner">
       <p>La pizza une el mundo</p>
     </div>
   </section>
 
-  <!-- 
-    NUEVO: Contenedor para el botón "Empezar Pedido" 
-    que SOLO se mostrará en móviles, debajo del marquee
-  -->
+  <!-- Botón "Empezar Pedido" para móviles -->
   <div class="mobile-pedido-cta">
-    <a href="hacer-pedido.html" class="btn-pedido-mobile">
-      Empezar Pedido
-    </a>
+    <a href="hacer-pedido.html" class="btn-pedido-mobile">Empezar Pedido</a>
   </div>
 
   <!-- Combos -->
@@ -110,16 +131,19 @@
       <a href="https://www.instagram.com/pizzaquira_" target="_blank">@pizzaquira_</a>
     </p>
     <div class="mapa">
-     <script async defer src="https://maps.googleapis.com/maps/api/js?key=TU_API_KEY_AQUI&callback=initMap"></script>
-
+      <!-- Mapa interactivo -->
+      <div id="map"></div>
+      <!--
+      Opcional: Si prefieres usar el iframe de Google Maps, reemplaza el bloque anterior por este código:
       <iframe
-        src="https://www.google.com/maps/embed/v1/place?key=YOUR_API_KEY&q=Zipaquir%C3%A1,Cundinamarca,Colombia"
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCLLJYCY17ihwCZbP1EsmNj6X53DGEPsVY&q=Zipaquir%C3%A1,Cundinamarca,Colombia"
         width="100%"
         height="300"
         style="border: 0"
         allowfullscreen=""
         loading="lazy"
       ></iframe>
+      -->
     </div>
     <!-- Enlace para obtener la ruta en Google Maps -->
     <a
@@ -155,5 +179,8 @@
       hamburgerBtn.classList.toggle('is-active');
     });
   </script>
+
+  <!-- Carga asíncrona de la API de Google Maps con el callback a initMap -->
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCLLJYCY17ihwCZbP1EsmNj6X53DGEPsVY&callback=initMap"></script>
 </body>
 </html>
