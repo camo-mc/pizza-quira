@@ -114,6 +114,23 @@ body {
   transform: rotate(-45deg) translate(5px, -5px);
 }
 
+
+
+.btn-agregar {
+  font-size: 1.2rem;           /* Tamaño de fuente más grande */
+  padding: 12px 24px;          /* Espaciado interno mayor */
+  background-color: #28a745;   /* Fondo verde */
+  color: #fff;                 /* Texto en color blanco */
+  border: none;                /* Sin borde */
+  border-radius: 5px;          /* Bordes redondeados */
+  cursor: pointer;             /* Cursor de mano al pasar sobre el botón */
+  transition: background-color 0.3s ease; /* Transición suave al cambiar de color */
+}
+
+.btn-agregar:hover {
+  background-color: #218838;   /* Color de fondo ligeramente más oscuro al pasar el cursor */
+}
+
 /* 
 ==========================================
   HERO (BANNER)
