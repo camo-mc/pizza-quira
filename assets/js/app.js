@@ -97,11 +97,7 @@ new Vue({
         ingredients: 'carne, costilla BBQ, cebolla caramelizada, lechuga, tomate, salsa especial',
         showIng: false
       },
-      {
-        name: 'Paisa',
-        ingredients: 'carne, chorizo, arepa, hogao, lechuga, tomate, salsa de la casa',
-        showIng: false
-      },
+
       {
         name: 'Miami',
         ingredients: 'carne, queso, lechuga, tomate, papas en casco, salsa tártara',
@@ -130,11 +126,7 @@ new Vue({
         ingredients: 'masa de pizza, salchicha zenú, pollo, champiñones, salsa napolitana',
         showIng: false
       },
-      {
-        name: 'Napolitano',
-        ingredients: 'masa de pizza, salchicha zenú, queso mozzarella, salsa napolitana',
-        showIng: false
-      },
+   
       {
         name: 'Hawaiano',
         ingredients: 'masa de pizza, salchicha zenú, jamón, piña, queso mozzarella, salsa napolitana',
