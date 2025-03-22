@@ -1,1 +1,1 @@
-# pizza-quira
+# pizzaquira
