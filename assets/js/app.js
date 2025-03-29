@@ -174,10 +174,7 @@ new Vue({
       const s = this.pizza.sabores;
 
       switch (this.pizza.tamano) {
-        case 'porcion':
-          // Porción: $9.000
-          precio = 9000;
-          break;
+      
         case 'personal':
           // Personal: 2 sabores
           // Ambos clásicos => $15.000
