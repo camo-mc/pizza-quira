@@ -181,7 +181,7 @@ new Vue({
           // Alguno gourmet => $17.000
           if (s[0] && s[1]) {
             const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
-            precio = isGourmet ? 17000 : 15000;
+            precio = isGourmet ? 26000 : 23000;
           }
           break;
         case 'mediana':
@@ -280,6 +280,16 @@ new Vue({
         mensaje += `- ${item.nombre}: $${this.numberFormat(item.precio)}\n`;
       });
       mensaje += `Total: $${this.numberFormat(this.total)}\n\n`;
+
+      //  Incluir info de pizza seleccionada (sabores y tamaño)
+      if (this.pizza.tamano && this.pizza.sabores.length > 0) {
+        mensaje += `📏 Tamaño de pizza: ${this.pizza.tamano.charAt(0).toUpperCase() + this.pizza.tamano.slice(1)}\n`;
+        mensaje += '🍕 Sabores elegidos:\n';
+        this.pizza.sabores.forEach((sabor, i) => {
+          mensaje += `  ${i + 1}) ${sabor.name}\n`;
+        });
+        mensaje += '\n';
+      }
 
       if (this.deliveryMethod === 'domicilio') {
         const { nombre, telefono, direccion, barrio, pago, comentarios } = this.formDomicilio;
