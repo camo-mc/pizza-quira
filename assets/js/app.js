@@ -309,7 +309,7 @@ new Vue({
       }
 
       // Abrir WhatsApp
-      const url = `https://wa.me/573018348558?text=${encodeURIComponent(mensaje)}`;
+      const url = `https://wa.me/573017118577?text=${encodeURIComponent(mensaje)}`;
       window.open(url, '_blank');
     }
   }
