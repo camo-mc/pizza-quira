@@ -168,56 +168,49 @@ new Vue({
     eliminarProducto(index) {
       this.carrito.splice(index, 1);
     },
+    // Calcular precio pizza
+    calcularPrecioPizza() {
+      let precio = 0;
+      const s = this.pizza.sabores;
 
-calcularPrecioPizza() {
-  let precio = 0;
-  const s = this.pizza.sabores;
-
-  switch (this.pizza.tamano) {
-    case 'personal':
-      // 1 solo sabor → base personal
-      if (s[0] && !s[1]) {
-        precio = s[0].type === 'gourmet' ? 18000 : 15000;
+      switch (this.pizza.tamano) {
+      
+        case 'personal':
+          // Personal: 2 sabores
+          // Ambos clásicos => $15.000
+          // Alguno gourmet => $17.000
+          if (s[0] && s[1]) {
+            const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
+            precio = isGourmet ? 26000 : 23000;
+          }
+          break;
+        case 'mediana':
+          // Mediana: 2 sabores
+          // Ambos clásicos => $43.000
+          // Al menos uno gourmet => $46.000
+          if (s[0] && s[1]) {
+            if (s[0].type === 'clasica' && s[1].type === 'clasica') {
+              precio = 43000;
+            } else {
+              precio = 46000;
+            }
+          }
+          break;
+        case 'familiar':
+          // Familiar: 3 sabores
+          // Todos clásicos => $63.000
+          // Alguno gourmet => $67.000
+          if (s[0] && s[1] && s[2]) {
+            const isGourmet =
+              s[0].type === 'gourmet' ||
+              s[1].type === 'gourmet' ||
+              s[2].type === 'gourmet';
+            precio = isGourmet ? 67000 : 63000;
+          }
+          break;
       }
-      // 2 sabores → precio normal personal
-      else if (s[0] && s[1]) {
-        const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
-        precio = isGourmet ? 26000 : 23000;
-      }
-      break;
-
-    case 'mediana':
-      // 1 solo sabor → base mediana
-      if (s[0] && !s[1]) {
-        precio = s[0].type === 'gourmet' ? 36000 : 33000;
-      }
-      // 2 sabores → precio normal mediana
-      else if (s[0] && s[1]) {
-        precio =
-          s[0].type === 'clasica' && s[1].type === 'clasica'
-            ? 43000
-            : 46000;
-      }
-      break;
-
-    case 'familiar':
-      // 3 sabores → precio normal familiar
-      if (s[0] && s[1] && s[2]) {
-        const isGourmet =
-          s[0].type === 'gourmet' ||
-          s[1].type === 'gourmet' ||
-          s[2].type === 'gourmet';
-        precio = isGourmet ? 67000 : 63000;
-      }
-      // Si deseas permitir 2 sabores en familiar, añade aquí un else-if similar
-      break;
-  }
-
-  return precio;
-}
-
-
-    
+      return precio;
+    },
     // Enviar pedido a WhatsApp con validación
     enviarPedido() {
       // Validar que el carrito no esté vacío
