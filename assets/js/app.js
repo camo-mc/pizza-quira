@@ -209,7 +209,6 @@ calcularPrecioPizza() {
           s[2].type === 'gourmet';
         precio = isGourmet ? 67000 : 63000;
       }
-      // Si deseas permitir 2 sabores en familiar, añade aquí un else-if similar
       break;
   }
 
