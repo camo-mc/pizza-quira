@@ -169,44 +169,33 @@ new Vue({
       this.carrito.splice(index, 1);
     },
 
-calcularPrecioPizza() {
+
+
+    calcularPrecioPizza() {
   let precio = 0;
   const s = this.pizza.sabores;
 
   switch (this.pizza.tamano) {
     case 'personal':
-      // 1 solo sabor → base personal
       if (s[0] && !s[1]) {
         precio = s[0].type === 'gourmet' ? 18000 : 15000;
-      }
-      // 2 sabores → precio normal personal
-      else if (s[0] && s[1]) {
+      } else if (s[0] && s[1]) {
         const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
         precio = isGourmet ? 26000 : 23000;
       }
       break;
 
     case 'mediana':
-      // 1 solo sabor → base mediana
       if (s[0] && !s[1]) {
         precio = s[0].type === 'gourmet' ? 36000 : 33000;
-      }
-      // 2 sabores → precio normal mediana
-      else if (s[0] && s[1]) {
-        precio =
-          s[0].type === 'clasica' && s[1].type === 'clasica'
-            ? 43000
-            : 46000;
+      } else if (s[0] && s[1]) {
+        precio = (s[0].type === 'clasica' && s[1].type === 'clasica') ? 43000 : 46000;
       }
       break;
 
     case 'familiar':
-      // 3 sabores → precio normal familiar
       if (s[0] && s[1] && s[2]) {
-        const isGourmet =
-          s[0].type === 'gourmet' ||
-          s[1].type === 'gourmet' ||
-          s[2].type === 'gourmet';
+        const isGourmet = [s[0], s[1], s[2]].some(x => x.type === 'gourmet');
         precio = isGourmet ? 67000 : 63000;
       }
       break;
@@ -214,7 +203,6 @@ calcularPrecioPizza() {
 
   return precio;
 }
-
 
     
     // Enviar pedido a WhatsApp con validación
