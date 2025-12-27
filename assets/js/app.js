@@ -137,8 +137,8 @@ new Vue({
     bebidas: [
       { name: 'Gaseosa 250 ml', price: 3000 },
       { name: 'Gaseosa 400 ml', price: 4000 },
-      { name: 'Gaseosa 1.5 L', price: 6000 },
-      { name: 'Té o Jugo del Valle', price: 4000 }
+      { name: 'Gaseosa 1.5 L', price: 8000 },
+    
     ],
     // Carrito
     carrito: []
@@ -181,16 +181,16 @@ new Vue({
           // Alguno gourmet => $17.000
           if (s[0] && s[1]) {
             const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
-            precio = isGourmet ? 26000 : 23000;
+            precio = isGourmet ? 23000 : 23000;
           }
           break;
         case 'mediana':
           // Mediana: 2 sabores
-          // Ambos clásicos => $43.000
+          // Ambos clásicos => $46.000
           // Al menos uno gourmet => $46.000
           if (s[0] && s[1]) {
             if (s[0].type === 'clasica' && s[1].type === 'clasica') {
-              precio = 43000;
+              precio = 46000;
             } else {
               precio = 46000;
             }
@@ -198,14 +198,14 @@ new Vue({
           break;
         case 'familiar':
           // Familiar: 3 sabores
-          // Todos clásicos => $63.000
-          // Alguno gourmet => $67.000
+          // Todos clásicos => $68.000
+          // Alguno gourmet => $68.000
           if (s[0] && s[1] && s[2]) {
             const isGourmet =
               s[0].type === 'gourmet' ||
               s[1].type === 'gourmet' ||
               s[2].type === 'gourmet';
-            precio = isGourmet ? 67000 : 63000;
+            precio = isGourmet ? 68000 : 68000;
           }
           break;
       }
