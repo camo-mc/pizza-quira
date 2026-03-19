@@ -181,18 +181,18 @@ new Vue({
           // Alguno gourmet => $17.000
           if (s[0] && s[1]) {
             const isGourmet = s[0].type === 'gourmet' || s[1].type === 'gourmet';
-            precio = isGourmet ? 23000 : 23000;
+            precio = isGourmet ? 24000 : 24000;
           }
           break;
         case 'mediana':
           // Mediana: 2 sabores
-          // Ambos clásicos => $46.000
-          // Al menos uno gourmet => $46.000
+          // Ambos clásicos => $48.000
+          // Al menos uno gourmet => $48.000
           if (s[0] && s[1]) {
             if (s[0].type === 'clasica' && s[1].type === 'clasica') {
-              precio = 46000;
+              precio = 48000;
             } else {
-              precio = 46000;
+              precio = 48000;
             }
           }
           break;
@@ -205,7 +205,7 @@ new Vue({
               s[0].type === 'gourmet' ||
               s[1].type === 'gourmet' ||
               s[2].type === 'gourmet';
-            precio = isGourmet ? 68000 : 68000;
+            precio = isGourmet ? 75000 : 75000;
           }
           break;
       }
